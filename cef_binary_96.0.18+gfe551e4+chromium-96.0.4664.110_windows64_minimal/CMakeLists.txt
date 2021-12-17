@@ -78,8 +78,13 @@ find_package(CEF REQUIRED)
 # Include the libcef_dll_wrapper target.
 # Comes from the libcef_dll/CMakeLists.txt file in the binary distribution
 # directory.
-# libecf_dll_wrapper를 빌드합니다.
+# libcef_dll_wrapper를 빌드합니다. 
 add_subdirectory(${CEF_LIBCEF_DLL_WRAPPER_PATH} libcef_dll_wrapper)
+
+# 2021-12-17 이미 libcef_dll_wrapper 디렉토리가 존재한다면 빌드를 수행하지 않습니다.
+# if(NOT EXISTS "${CEF_LIBCEF_DLL_WRAPPER_PATH}")
+#   add_subdirectory(${CEF_LIBCEF_DLL_WRAPPER_PATH} libcef_dll_wrapper)
+# endif()
 
 # Include application targets.
 # Comes from the <target>/CMakeLists.txt file in the current directory.
@@ -93,6 +98,10 @@ add_subdirectory(${CEF_LIBCEF_DLL_WRAPPER_PATH} libcef_dll_wrapper)
 # 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/cefclient")
   add_subdirectory(tests/cefclient)
+endif()
+
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/cefsimple")
+  # add_subdirectory(tests/cefsimple)
 endif()
 
 # Display configuration settings.

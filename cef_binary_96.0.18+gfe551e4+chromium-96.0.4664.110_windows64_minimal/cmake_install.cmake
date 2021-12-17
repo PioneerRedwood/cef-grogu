@@ -1,8 +1,8 @@
-# Install script for directory: C:/Temp/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal
+# Install script for directory: C:/Temp/cef-grogu/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files/CEF_GROGU")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/CEF_GROGU")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,12 +34,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Temp/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/libcef_dll_wrapper/cmake_install.cmake")
+  include("C:/Temp/cef-grogu/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/libcef_dll_wrapper/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Temp/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/cefgrogu/cmake_install.cmake")
+  include("C:/Temp/cef-grogu/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/tests/cefclient/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Temp/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Temp/cef-grogu/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
