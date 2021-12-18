@@ -4,10 +4,10 @@
 ### bin, bin64
 There are common parts, x86/x86-64 architecture
 #### host directory
-- CoherntUI_Host.exe
-- D3DCompiler_43.dll
-- ffmpegsumo.dll
-- icudt.dll
+- CoherntUI_Host.exe: 최신 사용자 인터페이스 라이브러리 ([참고](https://howtodoninja.com/files/exe/coherentui_host-exe/safe-virus-malware-uninstall-fix-coherentui_host-exe/))
+- D3DCompiler_43.dll: DirectX에서 사용하는 DLL. 
+- ffmpegsumo.dll: 크롬에서 사용되는 라이브러리
+- icudt.dll: 
 - libEGL.dll
 - libGLESv2.dll
 - pak files
