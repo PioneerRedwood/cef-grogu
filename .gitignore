@@ -104,8 +104,5 @@ include/
 libcef_dll/
 libcef_dll_wrapper/
 Release/
-Resources/
-shared/
-tests/
 x64/
 cef_grogu.dir/

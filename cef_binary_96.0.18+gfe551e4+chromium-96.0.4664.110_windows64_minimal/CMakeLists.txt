@@ -96,12 +96,12 @@ add_subdirectory(${CEF_LIBCEF_DLL_WRAPPER_PATH} libcef_dll_wrapper)
 # endif()
 
 # 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/cefclient")
-  add_subdirectory(tests/cefclient)
-endif()
+# if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/cefclient")
+#   add_subdirectory(tests/cefclient)
+# endif()
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/cefsimple")
-  # add_subdirectory(tests/cefsimple)
+  add_subdirectory(tests/cefsimple)
 endif()
 
 # Display configuration settings.
