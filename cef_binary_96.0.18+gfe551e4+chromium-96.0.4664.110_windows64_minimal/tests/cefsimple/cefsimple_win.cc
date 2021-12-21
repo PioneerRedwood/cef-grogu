@@ -6,7 +6,14 @@
 
 #include "include/cef_command_line.h"
 // #include "include/cef_sandbox_win.h"
-#include "tests/cefsimple/simple_app.h"
+// #include "tests/cefsimple/simple_app.h"
+#include "tests/cefsimple/context/main_context.h"
+#include "tests/cefsimple/context/main_message_loop_multithreaded.h"
+// #include "tests/cefsimple"
+#include "tests/cefsimple/browser/root_window_manager.h"
+// #include "tests/cefsimple/tests/test_runner.h"
+
+#include "tests/shared/browser/client_app_browser.h"
 
 // Entry point function for all processes.
 int APIENTRY wWinMain(HINSTANCE hInstance,
@@ -16,49 +23,69 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   UNREFERENCED_PARAMETER(hPrevInstance);
   UNREFERENCED_PARAMETER(lpCmdLine);
 
-  // Enable High-DPI support on Windows 7 or newer.
   CefEnableHighDPISupport();
 
-  void* sandbox_info = nullptr;
-
-  // Provide CEF with command-line arguments.
   CefMainArgs main_args(hInstance);
 
-  // CEF applications have multiple sub-processes (render, plugin, GPU, etc)
-  // that share the same executable. This function checks the command-line and,
-  // if this is a sub-process, executes the appropriate logic.
-  int exit_code = CefExecuteProcess(main_args, nullptr, sandbox_info);
-  if (exit_code >= 0) {
-    // The sub-process has completed so return here.
-    return exit_code;
-  }
-
-  // Parse command-line arguments for use in this method.
   CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
   command_line->InitFromString(::GetCommandLineW());
 
-  // Specify CEF global settings here.
+  int exit_code = CefExecuteProcess(main_args, nullptr, nullptr);
+  if (exit_code >= 0) {
+    return exit_code;
+  }
+
+  auto context = std::make_unique<MainContext>(command_line, true);
+
   CefSettings settings;
 
   if (command_line->HasSwitch("enable-chrome-runtime")) {
-    // Enable experimental Chrome runtime. See issue #2969 for details.
     settings.chrome_runtime = true;
   }
 
-  // SimpleApp implements application-level callbacks for the browser process.
-  // It will create the first browser instance in OnContextInitialized() after
-  // CEF has initialized.
-  CefRefPtr<SimpleApp> app(new SimpleApp);
-  
-  // Initialize CEF.
-  CefInitialize(main_args, settings, app.get(), sandbox_info);
+  // Applications should specify a unique GUID here to enable trusted downloads.
+  CefString(&settings.application_client_id_for_file_scanning)
+      .FromString("9A8DE24D-B822-4C6C-8259-5A848FEA1E68");
 
-  // Run the CEF message loop. This will block until CefQuitMessageLoop() is
-  // called.
-  CefRunMessageLoop();
+  // Populate the settings based on command line arguments.
+  context->PopulateSettings(&settings);
+
+  // CefRefPtr<SimpleApp> app(new SimpleApp);
+  CefRefPtr<CefApp> app = new ClientAppBrowser();
+
+  // Create the main message loop object.
+  std::unique_ptr<MainMessageLoop> message_loop;
+  message_loop.reset(new MainMessageLoopMultithreadedWin);
+
+  // Initialize CEF.
+  context->Initialize(main_args, settings, app, nullptr);
+
+  // Register scheme handlers.
+  // test_runner::RegisterSchemeHandlers();
+
+  auto window_config = std::make_unique<RootWindowConfig>();
+  window_config->always_on_top =
+      command_line->HasSwitch(switches::kAlwaysOnTop);
+  window_config->with_controls =
+      !command_line->HasSwitch(switches::kHideControls);
+  window_config->with_osr =
+      settings.windowless_rendering_enabled ? true : false;
+
+  // Create the first window.
+  context->GetRootWindowManager()->CreateRootWindow(std::move(window_config));
+
+  // Run the message loop. This will block until Quit() is called by the
+  // RootWindowManager after all windows have been destroyed.
+  int result = message_loop->Run();
 
   // Shut down CEF.
-  CefShutdown();
+  context->Shutdown();
+
+  // Release objects in reverse order of creation.
+  message_loop.reset();
+  context.reset();
+
+  return result;
 
   return 0;
 }
