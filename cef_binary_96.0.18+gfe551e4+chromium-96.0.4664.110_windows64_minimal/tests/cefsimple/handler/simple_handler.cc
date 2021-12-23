@@ -154,3 +154,11 @@ bool SimpleHandler::IsChromeRuntimeEnabled() {
   }
   return value == 1;
 }
+
+// for win 
+void SimpleHandler::PlatformTitleChange(CefRefPtr<CefBrowser> browser,
+                                        const CefString& title) {
+  CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+  if (hwnd)
+    SetWindowText(hwnd, std::wstring(title).c_str());
+}

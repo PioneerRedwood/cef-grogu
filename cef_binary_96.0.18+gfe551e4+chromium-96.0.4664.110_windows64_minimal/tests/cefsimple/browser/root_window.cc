@@ -10,7 +10,7 @@
 #include "tests/cefsimple/root_window_manager.h"
 
 // #include "tests/cefsimple/root_window_views.h"
-#include "tests/cefsimple/root_window_win.h"
+// #include "tests/cefsimple/root_window_win.h"
 
 namespace client {
 
@@ -32,13 +32,12 @@ scoped_refptr<RootWindow> RootWindow::GetForBrowser(int browser_id) {
       browser_id);
 }
 
-// static
-scoped_refptr<RootWindow> RootWindow::Create(bool use_views) {
-  // if (use_views) {
-  //   return new RootWindowViews();
-  // }
-  return new RootWindowWin();
-}
+// scoped_refptr<RootWindow> RootWindow::Create(bool use_views) {
+//   // if (use_views) {
+//   //   return new RootWindowViews();
+//   // }
+//   return new RootWindowWin();
+// }
 
 void RootWindow::OnExtensionsChanged(const ExtensionSet& extensions) {
   REQUIRE_MAIN_THREAD();

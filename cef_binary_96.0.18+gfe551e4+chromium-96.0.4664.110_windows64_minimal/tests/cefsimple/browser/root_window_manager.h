@@ -20,7 +20,7 @@ namespace client {
 
 // Used to create/manage RootWindow instances. The methods of this class can be
 // called from any browser process thread unless otherwise indicated.
-// 루트윈도우 인스턴스를 생성하고 관리하는데 사용됩니다.
+// 루트창 인스턴스를 생성하고 관리하는데 사용됩니다.
 class RootWindowManager : public RootWindow::Delegate {
  public:
   // If |terminate_when_all_windows_closed| is true quit the main message loop

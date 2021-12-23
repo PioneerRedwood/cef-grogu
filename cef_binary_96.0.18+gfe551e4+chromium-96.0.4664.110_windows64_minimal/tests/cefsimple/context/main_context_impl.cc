@@ -235,6 +235,7 @@ bool MainContextImpl::Initialize(const CefMainArgs& args,
   DCHECK(!initialized_);
   DCHECK(!shutdown_);
 
+  // CEF 초기화
   if (!CefInitialize(args, settings, application, windows_sandbox_info))
     return false;
 

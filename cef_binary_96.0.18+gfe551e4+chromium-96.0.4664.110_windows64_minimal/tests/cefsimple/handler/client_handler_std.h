@@ -12,6 +12,8 @@ namespace client {
 
 // Client handler implementation for windowed browsers. There will only ever be
 // one browser per handler instance.
+// 창 있는 브라우저에서 클라이언트 핸들러 구현
+// 핸들러 인스턴스마다 하나의 브라우저가 있을 것
 class ClientHandlerStd : public ClientHandler {
  public:
   ClientHandlerStd(Delegate* delegate, const std::string& startup_url)

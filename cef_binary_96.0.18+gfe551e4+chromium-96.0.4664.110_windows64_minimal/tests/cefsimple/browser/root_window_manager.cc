@@ -111,8 +111,8 @@ scoped_refptr<RootWindow> RootWindowManager::CreateRootWindow(
   CefBrowserSettings settings;
   MainContext::Get()->PopulateBrowserSettings(&settings);
 
-  scoped_refptr<RootWindow> root_window =
-      RootWindow::Create(MainContext::Get()->UseViews());
+  scoped_refptr<RootWindow> root_window = new RootWindowWin();
+      // RootWindow::Create(MainContext::Get()->UseViews());
   root_window->Init(this, std::move(config), settings);
 
   // Store a reference to the root window on the main thread.

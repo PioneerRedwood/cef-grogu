@@ -26,7 +26,7 @@ class RootWindowWin : public RootWindow, public BrowserWindow::Delegate {
   // Constructor may be called on any thread.
   RootWindowWin();
   ~RootWindowWin();
-
+  
   // RootWindow methods.
   void Init(RootWindow::Delegate* delegate,
             std::unique_ptr<RootWindowConfig> config,

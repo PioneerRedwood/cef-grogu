@@ -17,9 +17,11 @@
 #include "include/cef_ssl_status.h"
 #include "include/cef_x509_certificate.h"
 #include "include/wrapper/cef_closure_task.h"
+
 #include "tests/cefsimple/context/main_context.h"
 #include "tests/cefsimple/browser/root_window_manager.h"
 // #include "tests/cefclient/browser/test_runner.h"
+
 #include "tests/shared/browser/extension_util.h"
 #include "tests/shared/browser/resource_util.h"
 #include "tests/shared/common/client_switches.h"
@@ -485,95 +487,6 @@ bool ClientHandler::OnCursorChange(CefRefPtr<CefBrowser> browser,
 
   // Return true to disable default handling of cursor changes.
   return mouse_cursor_change_disabled_;
-}
-
-void ClientHandler::OnBeforeDownload(
-    CefRefPtr<CefBrowser> browser,
-    CefRefPtr<CefDownloadItem> download_item,
-    const CefString& suggested_name,
-    CefRefPtr<CefBeforeDownloadCallback> callback) {
-  CEF_REQUIRE_UI_THREAD();
-
-  // Continue the download and show the "Save As" dialog.
-  callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);
-}
-
-void ClientHandler::OnDownloadUpdated(
-    CefRefPtr<CefBrowser> browser,
-    CefRefPtr<CefDownloadItem> download_item,
-    CefRefPtr<CefDownloadItemCallback> callback) {
-  CEF_REQUIRE_UI_THREAD();
-
-  if (download_item->IsComplete()) {
-    test_runner::Alert(browser, "File \"" +
-                                    download_item->GetFullPath().ToString() +
-                                    "\" downloaded successfully.");
-  }
-}
-
-bool ClientHandler::OnDragEnter(CefRefPtr<CefBrowser> browser,
-                                CefRefPtr<CefDragData> dragData,
-                                CefDragHandler::DragOperationsMask mask) {
-  CEF_REQUIRE_UI_THREAD();
-
-  // Forbid dragging of URLs and files.
-  if ((mask & DRAG_OPERATION_LINK) && !dragData->IsFragment()) {
-    test_runner::Alert(browser, "cefclient blocks dragging of URLs and files");
-    return true;
-  }
-
-  return false;
-}
-
-void ClientHandler::OnDraggableRegionsChanged(
-    CefRefPtr<CefBrowser> browser,
-    CefRefPtr<CefFrame> frame,
-    const std::vector<CefDraggableRegion>& regions) {
-  CEF_REQUIRE_UI_THREAD();
-
-  NotifyDraggableRegions(regions);
-}
-
-void ClientHandler::OnTakeFocus(CefRefPtr<CefBrowser> browser, bool next) {
-  CEF_REQUIRE_UI_THREAD();
-
-  NotifyTakeFocus(next);
-}
-
-bool ClientHandler::OnSetFocus(CefRefPtr<CefBrowser> browser,
-                               FocusSource source) {
-  CEF_REQUIRE_UI_THREAD();
-
-  if (initial_navigation_) {
-    CefRefPtr<CefCommandLine> command_line =
-        CefCommandLine::GetGlobalCommandLine();
-    if (command_line->HasSwitch(switches::kNoActivate)) {
-      // Don't give focus to the browser on creation.
-      return true;
-    }
-  }
-
-  return false;
-}
-
-bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
-                                  const CefKeyEvent& event,
-                                  CefEventHandle os_event,
-                                  bool* is_keyboard_shortcut) {
-  CEF_REQUIRE_UI_THREAD();
-
-  if (!event.focus_on_editable_field && event.windows_key_code == 0x20) {
-    // Special handling for the space character when an input element does not
-    // have focus. Handling the event in OnPreKeyEvent() keeps the event from
-    // being processed in the renderer. If we instead handled the event in the
-    // OnKeyEvent() method the space key would cause the window to scroll in
-    // addition to showing the alert box.
-    if (event.type == KEYEVENT_RAWKEYDOWN)
-      test_runner::Alert(browser, "You pressed the space bar!");
-    return true;
-  }
-
-  return false;
 }
 
 bool ClientHandler::OnBeforePopup(

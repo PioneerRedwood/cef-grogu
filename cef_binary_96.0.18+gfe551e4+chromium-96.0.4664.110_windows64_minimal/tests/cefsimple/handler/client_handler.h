@@ -25,10 +25,10 @@ class ClientDownloadImageCallback;
 class ClientHandler : public CefClient,
                       public CefContextMenuHandler,
                       public CefDisplayHandler,
-                      public CefDownloadHandler,
-                      public CefDragHandler,
-                      public CefFocusHandler,
-                      public CefKeyboardHandler,
+                      // public CefDownloadHandler,
+                      // public CefDragHandler,
+                      // public CefFocusHandler,
+                      // public CefKeyboardHandler,
                       public CefLifeSpanHandler,
                       public CefLoadHandler,
                       public CefRequestHandler,
@@ -99,10 +99,6 @@ class ClientHandler : public CefClient,
     return this;
   }
   CefRefPtr<CefDisplayHandler> GetDisplayHandler() override { return this; }
-  CefRefPtr<CefDownloadHandler> GetDownloadHandler() override { return this; }
-  CefRefPtr<CefDragHandler> GetDragHandler() override { return this; }
-  CefRefPtr<CefFocusHandler> GetFocusHandler() override { return this; }
-  CefRefPtr<CefKeyboardHandler> GetKeyboardHandler() override { return this; }
   CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() override { return this; }
   CefRefPtr<CefLoadHandler> GetLoadHandler() override { return this; }
   CefRefPtr<CefRequestHandler> GetRequestHandler() override { return this; }
@@ -110,18 +106,6 @@ class ClientHandler : public CefClient,
                                 CefRefPtr<CefFrame> frame,
                                 CefProcessId source_process,
                                 CefRefPtr<CefProcessMessage> message) override;
-
-#if defined(OS_LINUX)
-  CefRefPtr<CefDialogHandler> GetDialogHandler() override {
-    return dialog_handler_;
-  }
-  CefRefPtr<CefJSDialogHandler> GetJSDialogHandler() override {
-    return dialog_handler_;
-  }
-  CefRefPtr<CefPrintHandler> GetPrintHandler() override {
-    return print_handler_;
-  }
-#endif
 
   // CefContextMenuHandler methods
   void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,
@@ -155,34 +139,6 @@ class ClientHandler : public CefClient,
                       CefCursorHandle cursor,
                       cef_cursor_type_t type,
                       const CefCursorInfo& custom_cursor_info) override;
-
-  // CefDownloadHandler methods
-  void OnBeforeDownload(CefRefPtr<CefBrowser> browser,
-                        CefRefPtr<CefDownloadItem> download_item,
-                        const CefString& suggested_name,
-                        CefRefPtr<CefBeforeDownloadCallback> callback) override;
-  void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,
-                         CefRefPtr<CefDownloadItem> download_item,
-                         CefRefPtr<CefDownloadItemCallback> callback) override;
-
-  // CefDragHandler methods
-  bool OnDragEnter(CefRefPtr<CefBrowser> browser,
-                   CefRefPtr<CefDragData> dragData,
-                   CefDragHandler::DragOperationsMask mask) override;
-  void OnDraggableRegionsChanged(
-      CefRefPtr<CefBrowser> browser,
-      CefRefPtr<CefFrame> frame,
-      const std::vector<CefDraggableRegion>& regions) override;
-
-  // CefFocusHandler methods
-  void OnTakeFocus(CefRefPtr<CefBrowser> browser, bool next) override;
-  bool OnSetFocus(CefRefPtr<CefBrowser> browser, FocusSource source) override;
-
-  // CefKeyboardHandler methods
-  bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
-                     const CefKeyEvent& event,
-                     CefEventHandle os_event,
-                     bool* is_keyboard_shortcut) override;
 
   // CefLifeSpanHandler methods
   bool OnBeforePopup(
@@ -367,12 +323,6 @@ class ClientHandler : public CefClient,
 
   // True if Favicon images should be downloaded.
   bool download_favicon_images_;
-
-#if defined(OS_LINUX)
-  // Custom dialog handler for GTK.
-  CefRefPtr<ClientDialogHandlerGtk> dialog_handler_;
-  CefRefPtr<ClientPrintHandlerGtk> print_handler_;
-#endif
 
   // Handles the browser side of query routing. The renderer side is handled
   // in client_renderer.cc.
