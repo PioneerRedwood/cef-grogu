@@ -8,7 +8,7 @@
 // #include "include/cef_sandbox_win.h"
 // #include "tests/cefsimple/simple_app.h"
 #include "tests/cefsimple/context/main_context.h"
-#include "tests/cefsimple/context/main_message_loop_multithreaded.h"
+// #include "tests/cefsimple/context/main_message_loop_multithreaded.h"
 // #include "tests/cefsimple"
 #include "tests/cefsimple/browser/root_window_manager.h"
 // #include "tests/cefsimple/tests/test_runner.h"
@@ -55,7 +55,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 
   // Create the main message loop object.
   std::unique_ptr<MainMessageLoop> message_loop;
-  message_loop.reset(new MainMessageLoopMultithreadedWin);
+  message_loop.reset(new MainMessageLoopStd);
 
   // Initialize CEF.
   context->Initialize(main_args, settings, app, nullptr);
@@ -63,13 +63,12 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   // Register scheme handlers.
   // test_runner::RegisterSchemeHandlers();
 
+  // 창 설정
   auto window_config = std::make_unique<RootWindowConfig>();
-  window_config->always_on_top =
-      command_line->HasSwitch(switches::kAlwaysOnTop);
-  window_config->with_controls =
-      !command_line->HasSwitch(switches::kHideControls);
-  window_config->with_osr =
-      settings.windowless_rendering_enabled ? true : false;
+  window_config->always_on_top = command_line->HasSwitch(switches::kAlwaysOnTop);
+  window_config->with_controls = !command_line->HasSwitch(switches::kHideControls);
+  // we don't need it
+  // window_config->with_osr = settings.windowless_rendering_enabled ? true : false; 
 
   // Create the first window.
   context->GetRootWindowManager()->CreateRootWindow(std::move(window_config));

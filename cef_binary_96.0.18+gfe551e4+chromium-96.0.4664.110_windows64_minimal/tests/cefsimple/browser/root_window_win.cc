@@ -319,10 +319,12 @@ void RootWindowWin::CreateBrowserWindow(const std::string& startup_url) {
     // MainContext::Get()->PopulateOsrSettings(&settings);
     // browser_window_.reset(new BrowserWindowOsrWin(this, startup_url, settings));
   } else {
+    // 브라우저 창 Window 기본 클래스로 설정
     browser_window_.reset(new BrowserWindowStdWin(this, startup_url));
   }
 }
 
+// 루트창 생성
 void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings,
                                      bool initially_hidden) {
   REQUIRE_MAIN_THREAD();
@@ -331,6 +333,7 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings,
   HINSTANCE hInstance = GetModuleHandle(nullptr);
 
   // Load strings from the resource file.
+  // 리소스 파일로부터 문자열 로드
   const std::wstring& window_title = GetResourceString(IDS_APP_TITLE);
   const std::wstring& window_class = GetResourceString(IDC_CEFCLIENT);
 
@@ -493,6 +496,7 @@ LRESULT CALLBACK RootWindowWin::FindWndProc(HWND hWnd,
 }
 
 // static
+// 루트창 메인 프로세스 함수, 루프를 돌며 메시지 처리
 LRESULT CALLBACK RootWindowWin::RootWndProc(HWND hWnd,
                                             UINT message,
                                             WPARAM wParam,
@@ -875,6 +879,7 @@ void RootWindowWin::OnNCCreate(LPCREATESTRUCT lpCreateStruct) {
   }
 }
 
+// 창 생성되면서 버튼도 생성되는 부분
 void RootWindowWin::OnCreate(LPCREATESTRUCT lpCreateStruct) {
   const HINSTANCE hInstance = lpCreateStruct->hInstance;
 
@@ -946,6 +951,7 @@ void RootWindowWin::OnCreate(LPCREATESTRUCT lpCreateStruct) {
     }
   } else {
     // No controls so also remove the default menu.
+    // 디폴트 메뉴
     ::SetMenu(hwnd_, nullptr);
   }
 
