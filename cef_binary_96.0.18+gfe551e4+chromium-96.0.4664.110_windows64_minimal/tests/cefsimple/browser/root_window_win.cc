@@ -520,6 +520,7 @@ LRESULT CALLBACK RootWindowWin::RootWndProc(HWND hWnd,
   }
 
   // Callback for the main window
+  // 메인 창 콜백
   switch (message) {
     case WM_COMMAND:
       if (self->OnCommand(LOWORD(wParam)))
@@ -767,6 +768,7 @@ bool RootWindowWin::OnEraseBkgnd() {
 }
 
 bool RootWindowWin::OnCommand(UINT id) {
+  // 만약 명령ID가 테스트라면
   if (id >= ID_TESTS_FIRST && id <= ID_TESTS_LAST) {
     delegate_->OnTest(this, id);
     return true;

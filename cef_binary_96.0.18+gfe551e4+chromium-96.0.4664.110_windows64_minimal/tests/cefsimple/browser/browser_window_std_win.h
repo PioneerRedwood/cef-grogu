@@ -13,7 +13,7 @@ namespace client {
 // Represents a native child window hosting a single windowed browser instance.
 // The methods of this class must be called on the main thread unless otherwise
 // indicated.
-// 창이 있는 단일 브라우저 인스턴스를 호스팅하는 네이티브 창을 나타냅니다.
+// 창이 있는 단일 브라우저 인스턴스를 호스팅하는 기본 자식 창을 나타냅니다.
 class BrowserWindowStdWin : public BrowserWindow {
  public:
   // Constructor may be called on any thread.

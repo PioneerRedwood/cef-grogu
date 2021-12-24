@@ -17,7 +17,7 @@ namespace client {
 // Represents a native child window hosting a single browser instance. The
 // methods of this class must be called on the main thread unless otherwise
 // indicated.
-// 단일 브라우저 인스턴스의 네이티브 자식 창을 나타냅니다.
+// 단일 브라우저 인스턴스의 기본 자식 창을 나타냅니다.
 class BrowserWindow : public ClientHandler::Delegate {
  public:
   // This interface is implemented by the owner of the BrowserWindow. The

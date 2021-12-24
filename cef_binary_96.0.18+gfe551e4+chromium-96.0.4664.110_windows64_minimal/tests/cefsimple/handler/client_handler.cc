@@ -150,6 +150,7 @@ std::string GetContentStatusString(cef_ssl_content_status_t status) {
 }
 
 // Load a data: URI containing the error message.
+// 에러 메시지가 포함된 URL 데이터 로드
 void LoadErrorPage(CefRefPtr<CefFrame> frame,
                    const std::string& failed_url,
                    cef_errorcode_t error_code,
@@ -171,6 +172,7 @@ void LoadErrorPage(CefRefPtr<CefFrame> frame,
 }
 
 // Return HTML string with information about a certificate.
+// 
 std::string GetCertificateInformation(CefRefPtr<CefX509Certificate> cert,
                                       cef_cert_status_t certstatus) {
   CefRefPtr<CefX509CertPrincipal> subject = cert->GetSubject();
@@ -225,6 +227,7 @@ std::string GetCertificateInformation(CefRefPtr<CefX509Certificate> cert,
 
 }  // namespace
 
+// 다운로드 이미지 콜백
 class ClientDownloadImageCallback : public CefDownloadImageCallback {
  public:
   explicit ClientDownloadImageCallback(CefRefPtr<ClientHandler> client_handler)
@@ -244,6 +247,7 @@ class ClientDownloadImageCallback : public CefDownloadImageCallback {
   DISALLOW_COPY_AND_ASSIGN(ClientDownloadImageCallback);
 };
 
+// 핸들러 생성자
 ClientHandler::ClientHandler(Delegate* delegate,
                              bool is_osr,
                              const std::string& startup_url)
@@ -258,16 +262,11 @@ ClientHandler::ClientHandler(Delegate* delegate,
       initial_navigation_(true) {
   DCHECK(!console_log_file_.empty());
 
-#if defined(OS_LINUX)
-  // Provide the GTK-based dialog implementation on Linux.
-  dialog_handler_ = new ClientDialogHandlerGtk();
-  print_handler_ = new ClientPrintHandlerGtk();
-#endif
-
   resource_manager_ = new CefResourceManager();
   test_runner::SetupResourceManager(resource_manager_, &string_resource_map_);
 
   // Read command line settings.
+  // 명령줄 설정 읽어오기
   CefRefPtr<CefCommandLine> command_line =
       CefCommandLine::GetGlobalCommandLine();
   mouse_cursor_change_disabled_ =
@@ -275,6 +274,7 @@ ClientHandler::ClientHandler(Delegate* delegate,
   offline_ = command_line->HasSwitch(switches::kOffline);
 }
 
+// 델리게이트 해제
 void ClientHandler::DetachDelegate() {
   if (!CURRENTLY_ON_MAIN_THREAD()) {
     // Execute this method on the main thread.
@@ -286,6 +286,7 @@ void ClientHandler::DetachDelegate() {
   delegate_ = nullptr;
 }
 
+// 
 bool ClientHandler::OnProcessMessageReceived(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
@@ -398,6 +399,7 @@ void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
   CEF_REQUIRE_UI_THREAD();
 
   // Only update the address for the main (top-level) frame.
+  // 메인(최상위) 프레임의 주소만 업데이트
   if (frame->IsMain())
     NotifyAddress(url);
 }
@@ -634,12 +636,15 @@ bool ClientHandler::OnOpenURLFromTab(
     config->with_controls = true;
     config->with_osr = is_osr();
     config->url = target_url;
+    
+    // 새 탭에 URL 열기
     MainContext::Get()->GetRootWindowManager()->CreateRootWindow(
         std::move(config));
     return true;
   }
 
   // Open the URL in the current browser window.
+  // 현재 브라우저 창에 URL 열기
   return false;
 }
 
@@ -848,6 +853,7 @@ int ClientHandler::GetBrowserCount() const {
   return browser_count_;
 }
 
+// DevTools & SSL 관련은 없애도 될 거 같은데 ...
 void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
                                  const CefPoint& inspect_element_at) {
   if (!CefCurrentlyOn(TID_UI)) {
@@ -1100,6 +1106,7 @@ void ClientHandler::NotifyTakeFocus(bool next) {
     delegate_->OnTakeFocus(next);
 }
 
+// 테스트 메뉴 빌드
 void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
   if (model->GetCount() > 0)
     model->AddSeparator();
@@ -1121,6 +1128,7 @@ void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
       CLIENT_ID_TESTMENU_RADIOITEM1 + test_menu_state_.radio_item, true);
 }
 
+// 테스트 메뉴 실행
 bool ClientHandler::ExecuteTestMenu(int command_id) {
   if (command_id == CLIENT_ID_TESTMENU_CHECKITEM) {
     // Toggle the check item.

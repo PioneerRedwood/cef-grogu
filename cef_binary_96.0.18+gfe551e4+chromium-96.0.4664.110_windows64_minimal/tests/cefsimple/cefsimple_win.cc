@@ -5,14 +5,9 @@
 #include <windows.h>
 
 #include "include/cef_command_line.h"
-// #include "include/cef_sandbox_win.h"
-// #include "tests/cefsimple/simple_app.h"
 #include "tests/cefsimple/context/main_context.h"
-// #include "tests/cefsimple/context/main_message_loop_multithreaded.h"
-// #include "tests/cefsimple"
 #include "tests/cefsimple/browser/root_window_manager.h"
 // #include "tests/cefsimple/tests/test_runner.h"
-
 #include "tests/shared/browser/client_app_browser.h"
 
 // Entry point function for all processes.

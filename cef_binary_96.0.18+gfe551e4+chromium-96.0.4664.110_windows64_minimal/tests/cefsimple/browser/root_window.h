@@ -77,7 +77,6 @@ class RootWindow
   // This interface is implemented by the owner of the RootWindow. The methods
   // of this class will be called on the main thread.
   // 루트창의 소유자에 의해 해당 인터페이스가 구현됩니다.
-  // 
   class Delegate {
    public:
     // Called to retrieve the CefRequestContext for browser. Only called for
