@@ -21,6 +21,8 @@ namespace client {
 // Implements a menu bar which is composed of CefMenuButtons positioned in a
 // row with automatic switching between them via mouse/keyboard. All methods
 // must be called on the browser process UI thread.
+// 마우스/키보드 사이 자동으로 변경되는 행에 위치한
+// CefMenuButtons로 구성된 메뉴바 구현입니다.
 class ViewsMenuBar : public CefMenuButtonDelegate, public CefMenuModelDelegate {
  public:
   // Delegate methods will be called on the browser process UI thread.
