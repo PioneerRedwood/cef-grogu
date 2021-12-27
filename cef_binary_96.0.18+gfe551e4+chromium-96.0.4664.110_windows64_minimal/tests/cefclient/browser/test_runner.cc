@@ -16,19 +16,22 @@
 #include "include/cef_web_plugin.h"
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_stream_resource_handler.h"
-#include "tests/cefclient/browser/binding_test.h"
+
+// #include "tests/cefclient/browser/binding_test.h"
+// #include "tests/cefclient/browser/dialog_test.h"
+// #include "tests/cefclient/browser/media_router_test.h"
+// #include "tests/cefclient/browser/preferences_test.h"
+//#include "tests/cefclient/browser/scheme_test.h"
+// #include "tests/cefclient/browser/server_test.h"
+//#include "tests/cefclient/browser/urlrequest_test.h"
+// #include "tests/cefclient/browser/window_test.h"
+// #include "tests/cefclient/browser/response_filter_test.h"
+
 #include "tests/cefclient/browser/client_handler.h"
-#include "tests/cefclient/browser/dialog_test.h"
 #include "tests/cefclient/browser/main_context.h"
-#include "tests/cefclient/browser/media_router_test.h"
-#include "tests/cefclient/browser/preferences_test.h"
 #include "tests/cefclient/browser/resource.h"
-#include "tests/cefclient/browser/response_filter_test.h"
 #include "tests/cefclient/browser/root_window_manager.h"
-#include "tests/cefclient/browser/scheme_test.h"
-#include "tests/cefclient/browser/server_test.h"
-#include "tests/cefclient/browser/urlrequest_test.h"
-#include "tests/cefclient/browser/window_test.h"
+
 #include "tests/shared/browser/resource_util.h"
 
 namespace client {
@@ -878,30 +881,30 @@ void CreateMessageHandlers(MessageHandlerSet& handlers) {
   handlers.insert(new PromptHandler);
 
   // Create the binding test handlers.
-  binding_test::CreateMessageHandlers(handlers);
+  // binding_test::CreateMessageHandlers(handlers);
 
   // Create the dialog test handlers.
-  dialog_test::CreateMessageHandlers(handlers);
+  // dialog_test::CreateMessageHandlers(handlers);
 
   // Create the media router test handlers.
-  media_router_test::CreateMessageHandlers(handlers);
+  // media_router_test::CreateMessageHandlers(handlers);
 
   // Create the preferences test handlers.
-  preferences_test::CreateMessageHandlers(handlers);
+  // preferences_test::CreateMessageHandlers(handlers);
 
   // Create the server test handlers.
-  server_test::CreateMessageHandlers(handlers);
+  // server_test::CreateMessageHandlers(handlers);
 
   // Create the urlrequest test handlers.
-  urlrequest_test::CreateMessageHandlers(handlers);
+  //urlrequest_test::CreateMessageHandlers(handlers);
 
   // Create the window test handlers.
-  window_test::CreateMessageHandlers(handlers);
+  // window_test::CreateMessageHandlers(handlers);
 }
 
 // Register the scheme handler.
 void RegisterSchemeHandlers() {
-  scheme_test::RegisterSchemeHandlers();
+  //scheme_test::RegisterSchemeHandlers();
 }
 
 CefRefPtr<CefResponseFilter> GetResourceResponseFilter(
@@ -910,8 +913,8 @@ CefRefPtr<CefResponseFilter> GetResourceResponseFilter(
     CefRefPtr<CefRequest> request,
     CefRefPtr<CefResponse> response) {
   // Create the response filter.
-  return response_filter_test::GetResourceResponseFilter(browser, frame,
-                                                         request, response);
+  // return response_filter_test::GetResourceResponseFilter(browser, frame, request, response);
+  return nullptr;
 }
 
 }  // namespace test_runner

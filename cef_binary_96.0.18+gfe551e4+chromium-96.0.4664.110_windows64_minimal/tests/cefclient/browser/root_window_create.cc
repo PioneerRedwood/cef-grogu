@@ -4,7 +4,7 @@
 
 #include "tests/cefclient/browser/root_window.h"
 
-#include "tests/cefclient/browser/root_window_views.h"
+//#include "tests/cefclient/browser/root_window_views.h"
 
 #if defined(OS_WIN)
 #include "tests/cefclient/browser/root_window_win.h"
@@ -18,9 +18,9 @@ namespace client {
 
 // static
 scoped_refptr<RootWindow> RootWindow::Create(bool use_views) {
-  if (use_views) {
-    return new RootWindowViews();
-  }
+  //if (use_views) {
+  //  return new RootWindowViews();
+  //}
 
 #if defined(OS_WIN)
   return new RootWindowWin();

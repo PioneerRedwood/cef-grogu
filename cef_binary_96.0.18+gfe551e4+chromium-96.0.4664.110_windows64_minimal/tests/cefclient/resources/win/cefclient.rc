@@ -15,7 +15,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English(US) resources
+// 영어(미국) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -241,7 +241,7 @@ BEGIN
     IDC_CEFCLIENT           "CEFCLIENT"
 END
 
-#endif    // US resources
+#endif    // 영어(미국) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

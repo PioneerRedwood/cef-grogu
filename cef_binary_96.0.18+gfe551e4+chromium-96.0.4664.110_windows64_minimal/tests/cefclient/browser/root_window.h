@@ -14,13 +14,10 @@
 #include "include/base/cef_ref_counted.h"
 #include "include/cef_browser.h"
 #include "include/views/cef_window.h"
+
 #include "tests/cefclient/browser/client_types.h"
 #include "tests/cefclient/browser/image_cache.h"
 #include "tests/shared/browser/main_message_loop.h"
-
-#if defined(OS_MAC) && __OBJC__
-@class NSWindow;
-#endif  // defined(OS_MAC) && __OBJC__
 
 namespace client {
 
@@ -121,12 +118,6 @@ class RootWindow
   // Returns the RootWindow associated with the specified |browser_id|. Must be
   // called on the main thread.
   static scoped_refptr<RootWindow> GetForBrowser(int browser_id);
-
-#if defined(OS_MAC) && __OBJC__
-  // Returns the RootWindow associated with the specified |window|. Must be
-  // called on the main thread.
-  static scoped_refptr<RootWindow> GetForNSWindow(NSWindow* window);
-#endif
 
   // Initialize as a normal window. This will create and show a native window
   // hosting a single browser instance. This method may be called on any thread.

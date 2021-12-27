@@ -66,8 +66,8 @@ list(APPEND CEF_COMPILER_DEFINES
   )
 
 
-# Configure use of the sandbox.
-option(USE_SANDBOX "Enable or disable use of the sandbox." ON)
+# Configure use of the sandbox. SET OFF 
+option(USE_SANDBOX "Enable or disable use of the sandbox." OFF)
 
 #
 # Windows configuration.

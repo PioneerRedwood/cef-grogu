@@ -331,10 +331,10 @@ void ClientHandler::OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,
       model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
     }
 
-    if (HasSSLInformation(browser)) {
-      model->AddSeparator();
-      model->AddItem(CLIENT_ID_SHOW_SSL_INFO, "Show SSL information");
-    }
+    //if (HasSSLInformation(browser)) {
+    //  model->AddSeparator();
+    //  model->AddItem(CLIENT_ID_SHOW_SSL_INFO, "Show SSL information");
+    //}
 
     if (!use_chrome_runtime) {
       // TODO(chrome-runtime): Add support for this.
@@ -366,18 +366,6 @@ bool ClientHandler::OnContextMenuCommand(CefRefPtr<CefBrowser> browser,
   CEF_REQUIRE_UI_THREAD();
 
   switch (command_id) {
-    case CLIENT_ID_SHOW_DEVTOOLS:
-      ShowDevTools(browser, CefPoint());
-      return true;
-    case CLIENT_ID_CLOSE_DEVTOOLS:
-      CloseDevTools(browser);
-      return true;
-    case CLIENT_ID_INSPECT_ELEMENT:
-      ShowDevTools(browser, CefPoint(params->GetXCoord(), params->GetYCoord()));
-      return true;
-    case CLIENT_ID_SHOW_SSL_INFO:
-      ShowSSLInformation(browser);
-      return true;
     case CLIENT_ID_CURSOR_CHANGE_DISABLED:
       mouse_cursor_change_disabled_ = !mouse_cursor_change_disabled_;
       return true;
@@ -933,98 +921,6 @@ void ClientHandler::OnProtocolExecution(CefRefPtr<CefBrowser> browser,
 int ClientHandler::GetBrowserCount() const {
   CEF_REQUIRE_UI_THREAD();
   return browser_count_;
-}
-
-void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
-                                 const CefPoint& inspect_element_at) {
-  if (!CefCurrentlyOn(TID_UI)) {
-    // Execute this method on the UI thread.
-    CefPostTask(TID_UI, base::BindOnce(&ClientHandler::ShowDevTools, this,
-                                       browser, inspect_element_at));
-    return;
-  }
-
-  CefWindowInfo windowInfo;
-  CefRefPtr<CefClient> client;
-  CefBrowserSettings settings;
-
-  MainContext::Get()->PopulateBrowserSettings(&settings);
-
-  CefRefPtr<CefBrowserHost> host = browser->GetHost();
-
-  // Test if the DevTools browser already exists.
-  bool has_devtools = host->HasDevTools();
-  if (!has_devtools) {
-    // Create a new RootWindow for the DevTools browser that will be created
-    // by ShowDevTools().
-    has_devtools = CreatePopupWindow(browser, true, CefPopupFeatures(),
-                                     windowInfo, client, settings);
-  }
-
-  if (has_devtools) {
-    // Create the DevTools browser if it doesn't already exist.
-    // Otherwise, focus the existing DevTools browser and inspect the element
-    // at |inspect_element_at| if non-empty.
-    host->ShowDevTools(windowInfo, client, settings, inspect_element_at);
-  }
-}
-
-void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {
-  browser->GetHost()->CloseDevTools();
-}
-
-bool ClientHandler::HasSSLInformation(CefRefPtr<CefBrowser> browser) {
-  CefRefPtr<CefNavigationEntry> nav =
-      browser->GetHost()->GetVisibleNavigationEntry();
-
-  return (nav && nav->GetSSLStatus() &&
-          nav->GetSSLStatus()->IsSecureConnection());
-}
-
-void ClientHandler::ShowSSLInformation(CefRefPtr<CefBrowser> browser) {
-  std::stringstream ss;
-  CefRefPtr<CefNavigationEntry> nav =
-      browser->GetHost()->GetVisibleNavigationEntry();
-  if (!nav)
-    return;
-
-  CefRefPtr<CefSSLStatus> ssl = nav->GetSSLStatus();
-  if (!ssl)
-    return;
-
-  ss << "<html><head><title>SSL Information</title></head>"
-        "<body bgcolor=\"white\">"
-        "<h3>SSL Connection</h3>"
-     << "<table border=1><tr><th>Field</th><th>Value</th></tr>";
-
-  CefURLParts urlparts;
-  if (CefParseURL(nav->GetURL(), urlparts)) {
-    CefString port(&urlparts.port);
-    ss << "<tr><td>Server</td><td>" << CefString(&urlparts.host).ToString();
-    if (!port.empty())
-      ss << ":" << port.ToString();
-    ss << "</td></tr>";
-  }
-
-  ss << "<tr><td>SSL Version</td><td>"
-     << GetSSLVersionString(ssl->GetSSLVersion()) << "</td></tr>";
-  ss << "<tr><td>Content Status</td><td>"
-     << GetContentStatusString(ssl->GetContentStatus()) << "</td></tr>";
-
-  ss << "</table>";
-
-  CefRefPtr<CefX509Certificate> cert = ssl->GetX509Certificate();
-  if (cert.get())
-    ss << GetCertificateInformation(cert, ssl->GetCertStatus());
-
-  ss << "</body></html>";
-
-  auto config = std::make_unique<RootWindowConfig>();
-  config->with_controls = false;
-  config->with_osr = is_osr();
-  config->url = test_runner::GetDataURI(ss.str(), "text/html");
-  MainContext::Get()->GetRootWindowManager()->CreateRootWindow(
-      std::move(config));
 }
 
 void ClientHandler::SetStringResource(const std::string& page,

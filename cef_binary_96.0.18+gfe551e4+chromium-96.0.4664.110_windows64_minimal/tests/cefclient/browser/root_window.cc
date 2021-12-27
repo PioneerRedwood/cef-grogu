@@ -39,6 +39,7 @@ void RootWindow::OnExtensionsChanged(const ExtensionSet& extensions) {
 
   ExtensionSet::const_iterator it = extensions.begin();
   for (; it != extensions.end(); ++it) {
+  // for(auto it : extenstions) {
     delegate_->CreateExtensionWindow(*it, CefRect(), nullptr, base::DoNothing(),
                                      WithWindowlessRendering());
   }

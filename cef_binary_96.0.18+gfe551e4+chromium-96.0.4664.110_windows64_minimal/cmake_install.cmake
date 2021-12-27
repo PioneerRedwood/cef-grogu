@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Temp/cef-grogu/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/tests/cefsimple/cmake_install.cmake")
+  include("C:/Temp/cef-grogu/cef_binary_96.0.18+gfe551e4+chromium-96.0.4664.110_windows64_minimal/tests/cefclient/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

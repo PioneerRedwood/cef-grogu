@@ -2,76 +2,77 @@
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
 
-# updated 2021-12-17 @PioneerRedwood
-
 #
 # Source files.
 #
 
+# cefclient browser sources.
 set(CEFCLIENT_BROWSER_BROWSER_SRCS
-  browser/binding_test.cc
-  browser/binding_test.h
+  # browser/binding_test.cc
+  # browser/binding_test.h
   browser/browser_window.cc
   browser/browser_window.h
-  browser/bytes_write_handler.cc
-  browser/bytes_write_handler.h
+  # browser/bytes_write_handler.cc
+  # browser/bytes_write_handler.h
   browser/client_app_delegates_browser.cc
   browser/client_browser.cc
   browser/client_browser.h
   browser/client_handler.cc
   browser/client_handler.h
-  browser/client_handler_osr.cc
-  browser/client_handler_osr.h
+  # browser/client_handler_osr.cc
+  # browser/client_handler_osr.h
   browser/client_handler_std.cc
   browser/client_handler_std.h
   browser/client_types.h
-  browser/dialog_test.cc
-  browser/dialog_test.h
+  # browser/dialog_test.cc
+  # browser/dialog_test.h
+  # browser/drm_test.cc
+  # browser/drm_test.h
   browser/image_cache.cc
   browser/image_cache.h
   browser/main_context.cc
   browser/main_context.h
   browser/main_context_impl.cc
   browser/main_context_impl.h
-  browser/media_router_test.cc
-  browser/media_router_test.h
-  browser/osr_dragdrop_events.h
-  browser/osr_renderer.cc
-  browser/osr_renderer.h
-  browser/osr_renderer_settings.h
-  browser/preferences_test.cc
-  browser/preferences_test.h
+  # browser/media_router_test.cc
+  # browser/media_router_test.h
+  # browser/osr_dragdrop_events.h
+  # browser/osr_renderer.cc
+  # browser/osr_renderer.h
+  # browser/osr_renderer_settings.h
+  # browser/preferences_test.cc
+  # browser/preferences_test.h
   browser/resource.h
-  browser/response_filter_test.cc
-  browser/response_filter_test.h
+  # browser/response_filter_test.cc
+  # browser/response_filter_test.h
   browser/root_window.cc
   browser/root_window.h
   browser/root_window_create.cc
   browser/root_window_manager.cc
   browser/root_window_manager.h
-  browser/root_window_views.cc
-  browser/root_window_views.h
-  browser/scheme_test.cc
-  browser/scheme_test.h
-  browser/server_test.cc
-  browser/server_test.h
+  # browser/root_window_views.cc
+  # browser/root_window_views.h
+  # browser/scheme_test.cc
+  # browser/scheme_test.h
+  # browser/server_test.cc
+  # browser/server_test.h
   browser/temp_window.h
   browser/test_runner.cc
   browser/test_runner.h
-  browser/urlrequest_test.cc
-  browser/urlrequest_test.h
-  browser/views_menu_bar.cc
-  browser/views_menu_bar.h
-  browser/views_style.cc
-  browser/views_style.h
-  browser/views_window.cc
-  browser/views_window.h
-  browser/window_test.cc
-  browser/window_test.h
-  browser/window_test_runner.cc
-  browser/window_test_runner.h
-  browser/window_test_runner_views.cc
-  browser/window_test_runner_views.h
+  # browser/urlrequest_test.cc
+  # browser/urlrequest_test.h
+  # browser/views_menu_bar.cc
+  # browser/views_menu_bar.h
+  # browser/views_style.cc
+  # browser/views_style.h
+  # browser/views_window.cc
+  # browser/views_window.h
+  # browser/window_test.cc
+  # browser/window_test.h
+  # browser/window_test_runner.cc
+  # browser/window_test_runner.h
+  # browser/window_test_runner_views.cc
+  # browser/window_test_runner_views.h
   )
 source_group(cefclient\\\\browser FILES ${CEFCLIENT_BROWSER_BROWSER_SRCS})
 
@@ -152,39 +153,39 @@ set(CEFCLIENT_WINDOWS_SRCS
 source_group(cefclient FILES ${CEFCLIENT_WINDOWS_SRCS})
 
 set(CEFCLIENT_WINDOWS_BROWSER_SRCS
-  browser/browser_window_osr_win.cc
-  browser/browser_window_osr_win.h
+  # browser/browser_window_osr_win.cc
+  # browser/browser_window_osr_win.h
   browser/browser_window_std_win.cc
   browser/browser_window_std_win.h
   browser/main_context_impl_win.cc
   browser/main_message_loop_multithreaded_win.cc
   browser/main_message_loop_multithreaded_win.h
-  browser/osr_accessibility_helper.cc
-  browser/osr_accessibility_helper.h
-  browser/osr_accessibility_node.cc
-  browser/osr_accessibility_node.h
-  browser/osr_accessibility_node_win.cc
-  browser/osr_d3d11_win.cc
-  browser/osr_d3d11_win.h
-  browser/osr_dragdrop_win.cc
-  browser/osr_dragdrop_win.h
-  browser/osr_ime_handler_win.cc
-  browser/osr_ime_handler_win.h
-  browser/osr_render_handler_win.cc
-  browser/osr_render_handler_win.h
-  browser/osr_render_handler_win_d3d11.cc
-  browser/osr_render_handler_win_d3d11.h
-  browser/osr_render_handler_win_gl.cc
-  browser/osr_render_handler_win_gl.h
-  browser/osr_window_win.cc
-  browser/osr_window_win.h
+  # browser/osr_accessibility_helper.cc
+  # browser/osr_accessibility_helper.h
+  # browser/osr_accessibility_node.cc
+  # browser/osr_accessibility_node.h
+  # browser/osr_accessibility_node_win.cc
+  # browser/osr_d3d11_win.cc
+  # browser/osr_d3d11_win.h
+  # browser/osr_dragdrop_win.cc
+  # browser/osr_dragdrop_win.h
+  # browser/osr_ime_handler_win.cc
+  # browser/osr_ime_handler_win.h
+  # browser/osr_render_handler_win.cc
+  # browser/osr_render_handler_win.h
+  # browser/osr_render_handler_win_d3d11.cc
+  # browser/osr_render_handler_win_d3d11.h
+  # browser/osr_render_handler_win_gl.cc
+  # browser/osr_render_handler_win_gl.h
+  # browser/osr_window_win.cc
+  # browser/osr_window_win.h
   browser/resource_util_win_idmap.cc
   browser/root_window_win.cc
   browser/root_window_win.h
   browser/temp_window_win.cc
   browser/temp_window_win.h
-  browser/window_test_runner_win.cc
-  browser/window_test_runner_win.h
+  # browser/window_test_runner_win.cc
+  # browser/window_test_runner_win.h
   )
 source_group(cefclient\\\\browser FILES ${CEFCLIENT_WINDOWS_BROWSER_SRCS})
 
@@ -213,6 +214,7 @@ set(CEFCLIENT_RESOURCES_RESOURCES_SRCS
   resources/binding.html
   resources/dialogs.html
   resources/draggable.html
+  resources/drm.html
   resources/localstorage.html
   resources/logo.png
   resources/media_router.html
@@ -252,8 +254,10 @@ source_group(shared\\\\resources FILES ${CEFCLIENT_RESOURCES_SHARED_RESOURCES_SR
 
 set(CEFCLIENT_RESOURCES_SRCS
   ${CEFCLIENT_RESOURCES_RESOURCES_SRCS}
-  ${CEFCLIENT_RESOURCES_RESOURCES_EXTENSIONS_SET_PAGE_COLOR_SRCS}
-  ${CEFCLIENT_RESOURCES_SHARED_RESOURCES_SRCS}
+  # ${CEFCLIENT_RESOURCES_RESOURCES_EXTENSIONS_SET_PAGE_COLOR_SRCS}
+  # ${CEFCLIENT_RESOURCES_RESOURCES_MAC_SRCS}
+  # ${CEFCLIENT_RESOURCES_RESOURCES_MAC_ENGLISH_LPROJ_SRCS}
+  # ${CEFCLIENT_RESOURCES_SHARED_RESOURCES_SRCS}
   )
 
 
@@ -263,7 +267,6 @@ set(CEFCLIENT_RESOURCES_SRCS
 
 # Target executable names.
 set(CEF_TARGET "cefclient")
-# Logical target used to link the libcef library.
 ADD_LOGICAL_TARGET("libcef_lib" "${CEF_LIB_DEBUG}" "${CEF_LIB_RELEASE}")
 
 # Determine the target output directory.
@@ -290,18 +293,16 @@ if(OS_WINDOWS)
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS} d3d11.lib glu32.lib imm32.lib opengl32.lib)
 
-  message(STATUS "\n ${CEF_TARGET} ${CEF_LIB_DEBUG} ${CEF_LIB_RELEASE} \n")
-
   # if(USE_ATL)
   #   # Required by VS2013 to link accessibility API functions.
   #   target_link_libraries(${CEF_TARGET} oleacc.lib)
   # endif()
 
-  if(USE_SANDBOX)
-    # Logical target used to link the cef_sandbox library.
-    ADD_LOGICAL_TARGET("cef_sandbox_lib" "${CEF_SANDBOX_LIB_DEBUG}" "${CEF_SANDBOX_LIB_RELEASE}")
-    target_link_libraries(${CEF_TARGET} cef_sandbox_lib ${CEF_SANDBOX_STANDARD_LIBS})
-  endif()
+  # if(USE_SANDBOX)
+  #   # Logical target used to link the cef_sandbox library.
+  #   ADD_LOGICAL_TARGET("cef_sandbox_lib" "${CEF_SANDBOX_LIB_DEBUG}" "${CEF_SANDBOX_LIB_RELEASE}")
+  #   target_link_libraries(${CEF_TARGET} cef_sandbox_lib ${CEF_SANDBOX_STANDARD_LIBS})
+  # endif()
 
   # Add the custom manifest files to the executable.
   ADD_WINDOWS_MANIFEST("${CMAKE_CURRENT_SOURCE_DIR}/resources/win" "${CEF_TARGET}" "exe")

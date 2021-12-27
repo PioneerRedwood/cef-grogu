@@ -9,7 +9,7 @@ namespace client {
 
 // static
 void ClientApp::RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar) {
-  scheme_test::RegisterCustomSchemes(registrar);
+  // scheme_test::RegisterCustomSchemes(registrar);
 }
 
 }  // namespace client

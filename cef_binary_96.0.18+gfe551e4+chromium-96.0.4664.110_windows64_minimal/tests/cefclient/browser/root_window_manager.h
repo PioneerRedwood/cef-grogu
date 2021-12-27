@@ -11,30 +11,19 @@
 
 #include "include/cef_command_line.h"
 #include "include/cef_request_context_handler.h"
-#include "tests/cefclient/browser/image_cache.h"
+// #include "tests/cefclient/browser/image_cache.h"
 #include "tests/cefclient/browser/root_window.h"
 #include "tests/cefclient/browser/temp_window.h"
 
 namespace client {
 
-// Used to create/manage RootWindow instances. The methods of this class can be
-// called from any browser process thread unless otherwise indicated.
 class RootWindowManager : public RootWindow::Delegate {
  public:
-  // If |terminate_when_all_windows_closed| is true quit the main message loop
-  // after all windows have closed.
   explicit RootWindowManager(bool terminate_when_all_windows_closed);
 
-  // Create a new top-level native window. This method can be called from
-  // anywhere.
   scoped_refptr<RootWindow> CreateRootWindow(
       std::unique_ptr<RootWindowConfig> config);
 
-  // Create a new native popup window.
-  // If |with_controls| is true the window will show controls.
-  // If |with_osr| is true the window will use off-screen rendering.
-  // This method is called from ClientHandler::CreatePopupWindow() to
-  // create a new popup or DevTools window. Must be called on the UI thread.
   scoped_refptr<RootWindow> CreateRootWindowAsPopup(
       bool with_controls,
       bool with_osr,
@@ -43,10 +32,6 @@ class RootWindowManager : public RootWindow::Delegate {
       CefRefPtr<CefClient>& client,
       CefBrowserSettings& settings);
 
-  // Create a new top-level native window to host |extension|.
-  // If |with_controls| is true the window will show controls.
-  // If |with_osr| is true the window will use off-screen rendering.
-  // This method can be called from anywhere.
   scoped_refptr<RootWindow> CreateRootWindowAsExtension(
       CefRefPtr<CefExtension> extension,
       const CefRect& source_bounds,
@@ -55,28 +40,16 @@ class RootWindowManager : public RootWindow::Delegate {
       bool with_controls,
       bool with_osr);
 
-  // Returns true if a window hosting |extension| currently exists. Must be
-  // called on the main thread.
   bool HasRootWindowAsExtension(CefRefPtr<CefExtension> extension);
 
-  // Returns the RootWindow associated with the specified browser ID. Must be
-  // called on the main thread.
   scoped_refptr<RootWindow> GetWindowForBrowser(int browser_id) const;
 
-  // Returns the currently active/foreground RootWindow. May return nullptr.
-  // Must be called on the main thread.
   scoped_refptr<RootWindow> GetActiveRootWindow() const;
 
-  // Returns the currently active/foreground browser. May return nullptr. Safe
-  // to call from any thread.
   CefRefPtr<CefBrowser> GetActiveBrowser() const;
 
-  // Close all existing windows. If |force| is true onunload handlers will not
-  // be executed.
   void CloseAllWindows(bool force);
 
-  // Manage the set of loaded extensions. RootWindows will be notified via the
-  // OnExtensionsChanged method.
   void AddExtension(CefRefPtr<CefExtension> extension);
 
   bool request_context_per_browser() const {
@@ -84,7 +57,6 @@ class RootWindowManager : public RootWindow::Delegate {
   }
 
  private:
-  // Allow deletion via std::unique_ptr only.
   friend std::default_delete<RootWindowManager>;
 
   ~RootWindowManager();

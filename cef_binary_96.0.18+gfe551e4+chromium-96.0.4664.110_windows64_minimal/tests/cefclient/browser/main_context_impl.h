@@ -11,6 +11,7 @@
 #include "include/base/cef_thread_checker.h"
 #include "include/cef_app.h"
 #include "include/cef_command_line.h"
+
 #include "tests/cefclient/browser/main_context.h"
 #include "tests/cefclient/browser/root_window_manager.h"
 
@@ -34,7 +35,7 @@ class MainContextImpl : public MainContext {
   bool TouchEventsEnabled() override;
   void PopulateSettings(CefSettings* settings) override;
   void PopulateBrowserSettings(CefBrowserSettings* settings) override;
-  void PopulateOsrSettings(OsrRendererSettings* settings) override;
+  // void PopulateOsrSettings(OsrRendererSettings* settings) override;
   RootWindowManager* GetRootWindowManager() override;
 
   // Initialize CEF and associated main context state. This method must be

@@ -9,12 +9,14 @@
 #include "include/base/cef_build.h"
 #include "include/base/cef_callback.h"
 #include "include/cef_app.h"
-#include "tests/cefclient/browser/browser_window_osr_win.h"
+
+// #include "tests/cefclient/browser/browser_window_osr_win.h" // OSR 삭제
 #include "tests/cefclient/browser/browser_window_std_win.h"
 #include "tests/cefclient/browser/main_context.h"
 #include "tests/cefclient/browser/resource.h"
 #include "tests/cefclient/browser/temp_window.h"
-#include "tests/cefclient/browser/window_test_runner_win.h"
+// #include "tests/cefclient/browser/window_test_runner_win.h" // 테스트 부분?
+
 #include "tests/shared/browser/geometry_util.h"
 #include "tests/shared/browser/main_message_loop.h"
 #include "tests/shared/browser/util_win.h"
@@ -25,6 +27,11 @@
 #define URLBAR_HEIGHT 24
 
 namespace client {
+
+// static from root_window_create.cc
+//scoped_refptr<RootWindow> RootWindow::Create(bool _) {
+//  return new RootWindowWin();
+//}
 
 namespace {
 
@@ -304,11 +311,12 @@ bool RootWindowWin::WithExtension() const {
   return with_extension_;
 }
 
+// OSR 삭제
 void RootWindowWin::CreateBrowserWindow(const std::string& startup_url) {
   if (with_osr_) {
-    OsrRendererSettings settings = {};
-    MainContext::Get()->PopulateOsrSettings(&settings);
-    browser_window_.reset(new BrowserWindowOsrWin(this, startup_url, settings));
+    // OsrRendererSettings settings = {};
+    // MainContext::Get()->PopulateOsrSettings(&settings);
+    // browser_window_.reset(new BrowserWindowOsrWin(this, startup_url, settings));
   } else {
     browser_window_.reset(new BrowserWindowStdWin(this, startup_url));
   }
@@ -1030,15 +1038,16 @@ void RootWindowWin::OnSetTitle(const std::string& title) {
 void RootWindowWin::OnSetFullscreen(bool fullscreen) {
   REQUIRE_MAIN_THREAD();
 
-  CefRefPtr<CefBrowser> browser = GetBrowser();
-  if (browser) {
-    std::unique_ptr<window_test::WindowTestRunnerWin> test_runner(
-        new window_test::WindowTestRunnerWin());
-    if (fullscreen)
-      test_runner->Maximize(browser);
-    else
-      test_runner->Restore(browser);
-  }
+  // window_test_runner.h/cc 삭제
+  // CefRefPtr<CefBrowser> browser = GetBrowser();
+  // if (browser) {
+  //   std::unique_ptr<window_test::WindowTestRunnerWin> test_runner(
+  //       new window_test::WindowTestRunnerWin());
+  //   if (fullscreen)
+  //     test_runner->Maximize(browser);
+  //   else
+  //     test_runner->Restore(browser);
+  // }
 }
 
 void RootWindowWin::OnAutoResize(const CefSize& new_size) {

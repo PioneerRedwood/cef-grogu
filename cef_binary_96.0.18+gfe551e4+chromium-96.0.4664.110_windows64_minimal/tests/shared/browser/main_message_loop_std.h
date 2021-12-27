@@ -12,6 +12,8 @@ namespace client {
 
 // Represents the main message loop in the browser process. This implementation
 // is a light-weight wrapper around the Chromium UI thread.
+// 브라우저 프로세스의 메인 메시지 루프를 나타냅니다.
+// 해당 구현은 크로미움 UI 스레드를 감싸는 경량 래퍼입니다.
 class MainMessageLoopStd : public MainMessageLoop {
  public:
   MainMessageLoopStd();

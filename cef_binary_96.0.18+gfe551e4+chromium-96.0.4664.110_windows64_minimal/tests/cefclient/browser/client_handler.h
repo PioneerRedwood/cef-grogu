@@ -13,13 +13,10 @@
 #include "include/wrapper/cef_helpers.h"
 #include "include/wrapper/cef_message_router.h"
 #include "include/wrapper/cef_resource_manager.h"
+
 #include "tests/cefclient/browser/client_types.h"
 #include "tests/cefclient/browser/test_runner.h"
 
-#if defined(OS_LINUX)
-#include "tests/cefclient/browser/dialog_handler_gtk.h"
-#include "tests/cefclient/browser/print_handler_gtk.h"
-#endif
 
 namespace client {
 
@@ -289,19 +286,6 @@ class ClientHandler : public CefClient,
   // Returns the number of browsers currently using this handler. Can only be
   // called on the CEF UI thread.
   int GetBrowserCount() const;
-
-  // Show a new DevTools popup window.
-  void ShowDevTools(CefRefPtr<CefBrowser> browser,
-                    const CefPoint& inspect_element_at);
-
-  // Close the existing DevTools popup window, if any.
-  void CloseDevTools(CefRefPtr<CefBrowser> browser);
-
-  // Test if the current site has SSL information available.
-  bool HasSSLInformation(CefRefPtr<CefBrowser> browser);
-
-  // Show SSL information for the current site.
-  void ShowSSLInformation(CefRefPtr<CefBrowser> browser);
 
   // Set a string resource for loading via StringResourceProvider.
   void SetStringResource(const std::string& page, const std::string& data);
