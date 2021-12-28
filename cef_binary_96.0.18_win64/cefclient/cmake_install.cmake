@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Redwood/source/repos/cef-grogu/cef_binary_96.0.18_win64/cefclient
+# Install script for directory: C:/Temp/cef-grogu/cef_binary_96.0.18_win64/cefclient
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

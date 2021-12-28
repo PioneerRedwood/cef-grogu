@@ -513,8 +513,9 @@ LRESULT CALLBACK RootWindowWin::RootWndProc(HWND hWnd,
     return 0;
   }
 
-  // Callback for the main window
+  // Callback for the main window 메인 창 콜백
   switch (message) {
+    // 명령 실행
     case WM_COMMAND:
       if (self->OnCommand(LOWORD(wParam)))
         return 0;
@@ -766,6 +767,12 @@ bool RootWindowWin::OnCommand(UINT id) {
     return true;
   }
 
+  // GROGU
+  if (id >= ID_GROGU_HELLO) {
+      delegate_->OnCallGrogu(this, id);
+      return true;
+  }
+
   switch (id) {
     case IDM_ABOUT:
       OnAbout();
@@ -791,6 +798,9 @@ bool RootWindowWin::OnCommand(UINT id) {
     case IDC_NAV_STOP:  // Stop button
       if (CefRefPtr<CefBrowser> browser = GetBrowser())
         browser->StopLoad();
+      return true;
+    case ID_GROGU_HELLO:
+      delegate_->OnCallGrogu(this, id);
       return true;
   }
 

@@ -256,12 +256,7 @@ ClientHandler::ClientHandler(Delegate* delegate,
       initial_navigation_(true) {
   DCHECK(!console_log_file_.empty());
 
-#if defined(OS_LINUX)
-  // Provide the GTK-based dialog implementation on Linux.
-  dialog_handler_ = new ClientDialogHandlerGtk();
-  print_handler_ = new ClientPrintHandlerGtk();
-#endif
-
+  // 리소스 매니저 셋업
   resource_manager_ = new CefResourceManager();
   test_runner::SetupResourceManager(resource_manager_, &string_resource_map_);
 
@@ -931,6 +926,7 @@ void ClientHandler::SetStringResource(const std::string& page,
     return;
   }
 
+  // 문자열 리소스 맵에 페이지 - 데이터 값을 추가
   string_resource_map_[page] = data;
 }
 

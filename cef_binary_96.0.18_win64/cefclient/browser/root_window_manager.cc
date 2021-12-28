@@ -419,6 +419,12 @@ void RootWindowManager::CreateExtensionWindow(
   }
 }
 
+void RootWindowManager::OnCallGrogu(RootWindow* root_window, int test_id) {
+    REQUIRE_MAIN_THREAD();
+
+    test_runner::CallGrogu(root_window->GetBrowser(), test_id);
+}
+
 void RootWindowManager::CleanupOnUIThread() {
   CEF_REQUIRE_UI_THREAD();
 

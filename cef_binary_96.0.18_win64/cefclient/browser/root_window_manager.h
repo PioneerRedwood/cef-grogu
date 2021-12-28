@@ -79,6 +79,8 @@ class RootWindowManager : public RootWindow::Delegate {
                              CefRefPtr<CefWindow> parent_window,
                              base::OnceClosure close_callback,
                              bool with_osr) override;
+  // RootWindow::Delegate::OnCallGrogu
+  void OnCallGrogu(RootWindow* root_window, int test_id) override;
 
   void CleanupOnUIThread();
 

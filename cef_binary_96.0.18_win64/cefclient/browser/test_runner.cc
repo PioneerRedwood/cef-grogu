@@ -50,6 +50,7 @@ const char kTestPluginInfoPage[] = "plugin_info.html";
 
 // Set page data and navigate the browser. Used in combination with
 // StringResourceProvider.
+// 페이지 데이터를 설정하고 이동
 void LoadStringResourcePage(CefRefPtr<CefBrowser> browser,
                             const std::string& page,
                             const std::string& data) {
@@ -455,10 +456,11 @@ void MuteAudio(CefRefPtr<CefBrowser> browser, bool mute) {
 }
 
 void RunOtherTests(CefRefPtr<CefBrowser> browser) {
-  browser->GetMainFrame()->LoadURL("http://tests/other_tests");
+  browser->GetMainFrame()->LoadURL("http://tests/other_tests"); 
 }
 
 // Provider that dumps the request contents.
+// 덤프 요청 시 제공자
 class RequestDumpResourceProvider : public CefResourceManager::Provider {
  public:
   explicit RequestDumpResourceProvider(const std::string& url) : url_(url) {
@@ -491,6 +493,8 @@ class RequestDumpResourceProvider : public CefResourceManager::Provider {
 
 // Provider that returns string data for specific pages. Used in combination
 // with LoadStringResourcePage().
+// 특정 페이지에 대한 문자열 데이터를 반환하는 제공자
+// CefResourceManager::Provider
 class StringResourceProvider : public CefResourceManager::Provider {
  public:
   StringResourceProvider(const std::set<std::string>& pages,
@@ -598,46 +602,91 @@ void RunTest(CefRefPtr<CefBrowser> browser, int id) {
     case ID_TESTS_REQUEST:
       RunRequestTest(browser);
       break;
-    case ID_TESTS_PLUGIN_INFO:
-      RunPluginInfoTest(browser);
-      break;
-    case ID_TESTS_ZOOM_IN:
-      ModifyZoom(browser, 0.5);
-      break;
-    case ID_TESTS_ZOOM_OUT:
-      ModifyZoom(browser, -0.5);
-      break;
-    case ID_TESTS_ZOOM_RESET:
-      browser->GetHost()->SetZoomLevel(0.0);
-      break;
-    case ID_TESTS_OSR_FPS:
-      PromptFPS(browser);
-      break;
-    case ID_TESTS_OSR_DSF:
-      PromptDSF(browser);
-      break;
-    case ID_TESTS_TRACING_BEGIN:
-      BeginTracing();
-      break;
-    case ID_TESTS_TRACING_END:
-      EndTracing(browser);
-      break;
-    case ID_TESTS_PRINT:
-      browser->GetHost()->Print();
-      break;
+    //case ID_TESTS_PLUGIN_INFO:
+    //  RunPluginInfoTest(browser);
+    //  break;
+    //case ID_TESTS_ZOOM_IN:
+    //  ModifyZoom(browser, 0.5);
+    //  break;
+    //case ID_TESTS_ZOOM_OUT:
+    //  ModifyZoom(browser, -0.5);
+    //  break;
+    //case ID_TESTS_ZOOM_RESET:
+    //  browser->GetHost()->SetZoomLevel(0.0);
+    //  break;
+    //case ID_TESTS_OSR_FPS:
+    //  PromptFPS(browser);
+    //  break;
+    //case ID_TESTS_OSR_DSF:
+    //  PromptDSF(browser);
+    //  break;
+    //case ID_TESTS_TRACING_BEGIN:
+    //  BeginTracing();
+    //  break;
+    //case ID_TESTS_TRACING_END:
+    //  EndTracing(browser);
+    //  break;
+    //case ID_TESTS_PRINT:
+    //  browser->GetHost()->Print();
+    //  break;
     case ID_TESTS_PRINT_TO_PDF:
       PrintToPDF(browser);
       break;
-    case ID_TESTS_MUTE_AUDIO:
-      MuteAudio(browser, true);
-      break;
-    case ID_TESTS_UNMUTE_AUDIO:
-      MuteAudio(browser, false);
-      break;
+    //case ID_TESTS_MUTE_AUDIO:
+    //  MuteAudio(browser, true);
+    //  break;
+    //case ID_TESTS_UNMUTE_AUDIO:
+    //  MuteAudio(browser, false);
+    //  break;
     case ID_TESTS_OTHER_TESTS:
       RunOtherTests(browser);
       break;
   }
+}
+
+
+void CallGrogu(CefRefPtr<CefBrowser> browser, int id)
+{
+    if (!browser)
+        return;
+
+    // RunRequestTest 처럼 HTML을 문자열로 만들어서 출력?
+    auto RunCallingGrogu = [](CefRefPtr<CefBrowser> browser){
+        class Visitor : public CefStringVisitor {
+        public:
+            explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
+            
+            virtual void Visit(const CefString& string) override {
+                std::string source = StringReplace(string, "<", "&lt;");
+                source = StringReplace(source, ">", "&gt;");
+                std::stringstream ss;
+                ss << "<html><body bgcolor=\"white\">Source:<pre>" << source
+                    << "</pre></body></html>";
+                //LoadStringResourcePage(browser_, "call_grogu.html", ss.str());
+                
+                auto LoadCustomResourcePage = [&]() {
+                    CefRefPtr<CefClient> client = browser_->GetHost()->GetClient();
+                    ClientHandler* handler = static_cast<ClientHandler*>(client.get());
+                    handler->SetStringResource("call_grogu.html", ss.str());
+
+                    const std::string domain = "http://grogu/";
+                    browser_->GetMainFrame()->LoadURL(domain + "call_grogu.html");
+                };
+
+                LoadCustomResourcePage();
+            }
+        private:
+            CefRefPtr<CefBrowser> browser_;
+            IMPLEMENT_REFCOUNTING(Visitor);
+        };
+
+        browser->GetMainFrame()->GetSource(new Visitor(browser));
+    };
+
+    //RunCallingGrogu(browser);
+
+    browser->GetMainFrame()->LoadURL("http://tests/grogu");
+
 }
 
 std::string DumpRequestContents(CefRefPtr<CefRequest> request) {
@@ -810,41 +859,42 @@ void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager,
     return;
   }
 
+  // http://tests/
   const std::string& test_origin = kTestOrigin;
 
   // Add the URL filter.
+  // URL 필터링 수행하는 모듈 추가
   resource_manager->SetUrlFilter(base::BindRepeating(RequestUrlFilter));
 
   // Add provider for resource dumps.
+  // 덤프 리소스 요청 처리하는 프로바이더 추가
   resource_manager->AddProvider(
       new RequestDumpResourceProvider(test_origin + "request.html"), 0,
       std::string());
 
+  //const std::string& grogu_origin = "http://grogu/";
+  //resource_manager->AddProvider(
+  //    new RequestDumpResourceProvider(grogu_origin + "grogu.html"), 0,
+  //    std::string());
+
   // Set of supported string pages.
+  // 지원하는 문자열 페이지 추가
   std::set<std::string> string_pages;
   string_pages.insert(kTestGetSourcePage);
   string_pages.insert(kTestGetTextPage);
   string_pages.insert(kTestPluginInfoPage);
 
   // Add provider for string resources.
+  // 문자열 리소스 프로바이더 추가
   resource_manager->AddProvider(
       new StringResourceProvider(string_pages, string_resource_map), 0,
       std::string());
 
-// Add provider for bundled resource files.
-#if defined(OS_WIN)
-  // Read resources from the binary.
+  // Add provider for bundled resource files.
+  // Read resources from the binary. for OS_WIN
   resource_manager->AddProvider(
       CreateBinaryResourceProvider(test_origin, std::string()), 100,
       std::string());
-#elif defined(OS_POSIX)
-  // Read resources from a directory on disk.
-  std::string resource_dir;
-  if (GetResourceDir(resource_dir)) {
-    resource_manager->AddDirectoryProvider(test_origin, resource_dir, 100,
-                                           std::string());
-  }
-#endif
 }
 
 void Alert(CefRefPtr<CefBrowser> browser, const std::string& message) {

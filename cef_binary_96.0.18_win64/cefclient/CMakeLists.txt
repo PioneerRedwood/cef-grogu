@@ -231,6 +231,8 @@ set(CEFCLIENT_RESOURCES_RESOURCES_SRCS
   resources/websocket.html
   resources/window.html
   resources/xmlhttprequest.html
+  # grogu
+  resources/grogu.html
   )
 source_group(cefclient\\\\resources FILES ${CEFCLIENT_RESOURCES_RESOURCES_SRCS})
 

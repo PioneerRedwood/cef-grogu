@@ -357,12 +357,6 @@ class ClientHandler : public CefClient,
   // True if Favicon images should be downloaded.
   bool download_favicon_images_;
 
-#if defined(OS_LINUX)
-  // Custom dialog handler for GTK.
-  CefRefPtr<ClientDialogHandlerGtk> dialog_handler_;
-  CefRefPtr<ClientPrintHandlerGtk> print_handler_;
-#endif
-
   // Handles the browser side of query routing. The renderer side is handled
   // in client_renderer.cc.
   CefRefPtr<CefMessageRouterBrowserSide> message_router_;
@@ -372,7 +366,8 @@ class ClientHandler : public CefClient,
 
   // Used to manage string resources in combination with StringResourceProvider.
   // Only accessed on the IO thread.
-  test_runner::StringResourceMap string_resource_map_;
+  using StringResourceMap = std::map<std::string, std::string>;
+  StringResourceMap string_resource_map_;
 
   // MAIN THREAD MEMBERS
   // The following members will only be accessed on the main thread. This will

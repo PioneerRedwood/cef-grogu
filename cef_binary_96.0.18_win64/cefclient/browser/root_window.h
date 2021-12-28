@@ -84,6 +84,9 @@ class RootWindow
     // Called to execute a test. See resource.h for |test_id| values.
     virtual void OnTest(RootWindow* root_window, int test_id) = 0;
 
+    // for GROGU
+    virtual void OnCallGrogu(RootWindow* root_window, int test_id) = 0;
+    
     // Called to exit the application.
     virtual void OnExit(RootWindow* root_window) = 0;
 
