@@ -10,3 +10,5 @@
 
 - [ ] Epic Games Launcher of Epic Games
 
+## license
+- 어플리케이션 별로 사용하는 상용 라이센스에 대해서 찾아보면 도움이 될 수 있다
