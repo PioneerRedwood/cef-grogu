@@ -620,6 +620,7 @@ LRESULT CALLBACK RootWindowWin::RootWndProc(HWND hWnd,
       self->hwnd_ = nullptr;
       self->OnDestroyed();
       break;
+      
   }
 
   return DefWindowProc(hWnd, message, wParam, lParam);
@@ -685,6 +686,7 @@ void RootWindowWin::OnSize(bool minimized) {
                   TRUE);
       SendMessage(edit_hwnd_, WM_SETFONT, reinterpret_cast<WPARAM>(font_),
                   TRUE);
+      
     }
 
     // Resize the window and address bar to match the new frame size.

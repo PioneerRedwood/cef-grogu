@@ -94,18 +94,18 @@ BEGIN
         MENUITEM "New Window",                  ID_TESTS_WINDOW_NEW
         MENUITEM "Popup Window",                ID_TESTS_WINDOW_POPUP
         MENUITEM "Request",                     ID_TESTS_REQUEST
-        MENUITEM "Plugin Info",                 ID_TESTS_PLUGIN_INFO
-        MENUITEM "Zoom In",                     ID_TESTS_ZOOM_IN
-        MENUITEM "Zoom Out",                    ID_TESTS_ZOOM_OUT
-        MENUITEM "Zoom Reset",                  ID_TESTS_ZOOM_RESET
-        MENUITEM "Set FPS",                     ID_TESTS_OSR_FPS
-        MENUITEM "Set Scale Factor",            ID_TESTS_OSR_DSF
-        MENUITEM "Begin Tracing",               ID_TESTS_TRACING_BEGIN
-        MENUITEM "End Tracing",                 ID_TESTS_TRACING_END
-        MENUITEM "Print",                       ID_TESTS_PRINT
-        MENUITEM "Print to PDF",                ID_TESTS_PRINT_TO_PDF
-        MENUITEM "Mute Audio",                  ID_TESTS_MUTE_AUDIO
-        MENUITEM "Unmute Audio",                ID_TESTS_UNMUTE_AUDIO
+        // MENUITEM "Plugin Info",                 ID_TESTS_PLUGIN_INFO
+        // MENUITEM "Zoom In",                     ID_TESTS_ZOOM_IN
+        // MENUITEM "Zoom Out",                    ID_TESTS_ZOOM_OUT
+        // MENUITEM "Zoom Reset",                  ID_TESTS_ZOOM_RESET
+        // MENUITEM "Set FPS",                     ID_TESTS_OSR_FPS
+        // MENUITEM "Set Scale Factor",            ID_TESTS_OSR_DSF
+        // MENUITEM "Begin Tracing",               ID_TESTS_TRACING_BEGIN
+        // MENUITEM "End Tracing",                 ID_TESTS_TRACING_END
+        // MENUITEM "Print",                       ID_TESTS_PRINT
+        // MENUITEM "Print to PDF",                ID_TESTS_PRINT_TO_PDF
+        // MENUITEM "Mute Audio",                  ID_TESTS_MUTE_AUDIO
+        // MENUITEM "Unmute Audio",                ID_TESTS_UNMUTE_AUDIO
         MENUITEM "Other Tests",                 ID_TESTS_OTHER_TESTS
     END
     POPUP "&Grogu"

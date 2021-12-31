@@ -599,7 +599,7 @@ void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
   // Set offline mode if requested via the command-line flag.
   if (offline_)
     SetOfflineState(browser, true);
-
+  
   if (browser->GetHost()->GetExtension()) {
     // Browsers hosting extension apps should auto-resize.
     browser->GetHost()->SetAutoResizeEnabled(true, CefSize(20, 20),
