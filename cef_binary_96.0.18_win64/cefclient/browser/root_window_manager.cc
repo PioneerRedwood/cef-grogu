@@ -2,19 +2,19 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "cefclient/browser/root_window_manager.h"
+#include "root_window_manager.h"
 
 #include <sstream>
 
 #include "include/base/cef_callback.h"
 #include "include/base/cef_logging.h"
 #include "include/wrapper/cef_helpers.h"
-#include "cefclient/browser/main_context.h"
-#include "cefclient/browser/test_runner.h"
-#include "shared/browser/extension_util.h"
-#include "shared/browser/file_util.h"
-#include "shared/browser/resource_util.h"
-#include "shared/common/client_switches.h"
+#include "main_context.h"
+#include "test_runner.h"
+#include "browser/extension_util.h"
+#include "browser/file_util.h"
+#include "browser/resource_util.h"
+#include "common/client_switches.h"
 
 namespace client {
 

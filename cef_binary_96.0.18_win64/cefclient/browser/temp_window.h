@@ -6,9 +6,9 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_TEMP_WINDOW_H_
 #pragma once
 
-#include "cefclient/browser/client_types.h"
+#include "client_types.h"
 
-#include "cefclient/browser/temp_window_win.h"
+#include "temp_window_win.h"
 
 namespace client {
 

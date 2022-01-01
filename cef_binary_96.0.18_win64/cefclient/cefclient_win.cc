@@ -9,17 +9,17 @@
 #include "include/cef_command_line.h"
 // #include "include/cef_sandbox_win.h"
 
-#include "cefclient/browser/main_context_impl.h"
-#include "cefclient/browser/main_message_loop_multithreaded_win.h"
-#include "cefclient/browser/root_window_manager.h"
-#include "cefclient/browser/test_runner.h"
+#include "browser/main_context_impl.h"
+#include "browser/main_message_loop_multithreaded_win.h"
+#include "browser/root_window_manager.h"
+#include "browser/test_runner.h"
 
-#include "shared/browser/client_app_browser.h"
-#include "shared/browser/main_message_loop_external_pump.h"
-#include "shared/browser/main_message_loop_std.h"
-#include "shared/common/client_app_other.h"
-#include "shared/common/client_switches.h"
-#include "shared/renderer/client_app_renderer.h"
+#include "browser/client_app_browser.h"
+#include "browser/main_message_loop_external_pump.h"
+#include "browser/main_message_loop_std.h"
+#include "common/client_app_other.h"
+#include "common/client_switches.h"
+#include "renderer/client_app_renderer.h"
 
 namespace client {
 namespace {

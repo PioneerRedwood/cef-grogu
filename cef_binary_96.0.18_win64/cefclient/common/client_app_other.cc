@@ -2,12 +2,12 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "client_handler_std.h"
+#include "common/client_app_other.h"
+
+#include "include/cef_command_line.h"
 
 namespace client {
 
-ClientHandlerStd::ClientHandlerStd(Delegate* delegate,
-                                   const std::string& startup_url)
-    : ClientHandler(delegate, false, startup_url) {}
+ClientAppOther::ClientAppOther() {}
 
 }  // namespace client

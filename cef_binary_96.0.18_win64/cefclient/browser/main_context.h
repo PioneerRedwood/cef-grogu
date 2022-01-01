@@ -10,7 +10,6 @@
 
 #include "include/base/cef_ref_counted.h"
 #include "include/internal/cef_types_wrappers.h"
-// #include "cefclient/browser/osr_renderer_settings.h"
 
 namespace client {
 

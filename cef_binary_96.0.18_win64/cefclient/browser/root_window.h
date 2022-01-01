@@ -15,9 +15,9 @@
 #include "include/cef_browser.h"
 #include "include/views/cef_window.h"
 
-#include "cefclient/browser/client_types.h"
-#include "cefclient/browser/image_cache.h"
-#include "shared/browser/main_message_loop.h"
+#include "client_types.h"
+#include "image_cache.h"
+#include "browser/main_message_loop.h"
 
 namespace client {
 
