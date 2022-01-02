@@ -11,9 +11,8 @@
 
 #include "include/cef_command_line.h"
 #include "include/cef_request_context_handler.h"
-// #include "cefclient/browser/image_cache.h"
-#include "root_window.h"
-#include "temp_window.h"
+#include "cefclient/browser/root_window.h"
+#include "cefclient/browser/temp_window.h"
 
 namespace client {
 
@@ -67,7 +66,7 @@ class RootWindowManager : public RootWindow::Delegate {
   // RootWindow::Delegate methods.
   CefRefPtr<CefRequestContext> GetRequestContext(
       RootWindow* root_window) override;
-  scoped_refptr<ImageCache> GetImageCache() override;
+  //scoped_refptr<ImageCache> GetImageCache() override;
   void OnTest(RootWindow* root_window, int test_id) override;
   void OnExit(RootWindow* root_window) override;
   void OnRootWindowDestroyed(RootWindow* root_window) override;
@@ -109,7 +108,7 @@ class RootWindowManager : public RootWindow::Delegate {
   // Loaded extensions. Only accessed on the main thread.
   ExtensionSet extensions_;
 
-  scoped_refptr<ImageCache> image_cache_;
+  //scoped_refptr<ImageCache> image_cache_;
 
   DISALLOW_COPY_AND_ASSIGN(RootWindowManager);
 };

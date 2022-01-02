@@ -6,13 +6,32 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_TEMP_WINDOW_H_
 #pragma once
 
-#include "client_types.h"
+#include "cefclient/browser/client_types.h"
 
-#include "temp_window_win.h"
+#include "include/cef_base.h"
 
 namespace client {
 
-typedef TempWindowWin TempWindow;
+// Represents a singleton hidden window that acts as a temporary parent for
+// popup browsers. Only accessed on the UI thread.
+class TempWindow {
+ public:
+  // Returns the singleton window handle.
+  static CefWindowHandle GetWindowHandle();
+
+ private:
+  // A single instance will be created/owned by RootWindowManager.
+  friend class RootWindowManager;
+  // Allow deletion via std::unique_ptr only.
+  friend std::default_delete<TempWindow>;
+
+  TempWindow();
+  ~TempWindow();
+
+  CefWindowHandle hwnd_;
+
+  DISALLOW_COPY_AND_ASSIGN(TempWindow);
+};
 
 }  // namespace client
 

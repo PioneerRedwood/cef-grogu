@@ -6,14 +6,11 @@
 #define CEF_TESTS_SHARED_BROWSER_MAIN_MESSAGE_LOOP_H_
 #pragma once
 
+#include <windows.h>
 #include <memory>
 
 #include "include/base/cef_callback.h"
 #include "include/cef_task.h"
-
-#if defined(OS_WIN)
-#include <windows.h>
-#endif
 
 namespace client {
 
@@ -21,6 +18,7 @@ namespace client {
 // browser process. This will be the same as the CEF UI thread on Linux, OS X
 // and Windows when not using multi-threaded message loop mode. The methods of
 // this class are thread-safe unless otherwise indicated.
+// 브라우저 프로세스의 메인 어플리케이션 스레드 내부에서 작동중인 메시지 루프를 나타냅니다
 class MainMessageLoop {
  public:
   // Returns the singleton instance of this object.
@@ -58,7 +56,7 @@ class MainMessageLoop {
   MainMessageLoop();
   virtual ~MainMessageLoop();
 
- private:
+private:
   DISALLOW_COPY_AND_ASSIGN(MainMessageLoop);
 };
 

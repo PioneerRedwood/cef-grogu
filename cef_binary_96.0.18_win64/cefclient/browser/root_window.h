@@ -15,9 +15,8 @@
 #include "include/cef_browser.h"
 #include "include/views/cef_window.h"
 
-#include "client_types.h"
-#include "image_cache.h"
-#include "browser/main_message_loop.h"
+#include "cefclient/browser/client_types.h"
+#include "cefclient/browser/main_message_loop.h"
 
 namespace client {
 
@@ -79,7 +78,7 @@ class RootWindow
         RootWindow* root_window) = 0;
 
     // Returns the ImageCache.
-    virtual scoped_refptr<ImageCache> GetImageCache() = 0;
+    //virtual scoped_refptr<ImageCache> GetImageCache() = 0;
 
     // Called to execute a test. See resource.h for |test_id| values.
     virtual void OnTest(RootWindow* root_window, int test_id) = 0;

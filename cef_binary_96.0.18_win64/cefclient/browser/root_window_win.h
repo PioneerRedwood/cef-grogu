@@ -13,8 +13,8 @@
 #include <memory>
 #include <string>
 
-#include "browser_window.h"
-#include "root_window.h"
+#include "cefclient/browser/browser_window.h"
+#include "cefclient/browser/root_window.h"
 
 namespace client {
 

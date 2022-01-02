@@ -2,7 +2,8 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "common/client_app.h"
+#include "cefclient/common/client_app.h"
+#include "cefclient/common/scheme_test_common.h" // for scheme test
 
 #include "include/cef_command_line.h"
 
@@ -31,17 +32,18 @@ ClientApp::ProcessType ClientApp::GetProcessType(
   const std::string& process_type = command_line->GetSwitchValue(kProcessType);
   if (process_type == kRendererProcess)
     return RendererProcess;
-#if defined(OS_LINUX)
-  else if (process_type == kZygoteProcess)
-    return ZygoteProcess;
-#endif
-
   return OtherProcess;
 }
 
 void ClientApp::OnRegisterCustomSchemes(
     CefRawPtr<CefSchemeRegistrar> registrar) {
   RegisterCustomSchemes(registrar);
+}
+
+// static
+void ClientApp::RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar) {
+  // 2022-01-02 지금은 스키마 테스트 안함
+  // scheme_test::RegisterCustomSchemes(registrar);
 }
 
 }  // namespace client

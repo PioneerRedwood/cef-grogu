@@ -14,9 +14,8 @@
 #include "include/wrapper/cef_message_router.h"
 #include "include/wrapper/cef_resource_manager.h"
 
-#include "client_types.h"
-#include "test_runner.h"
-
+#include "cefclient/browser/client_types.h"
+#include "cefclient/tests/test_runner.h"
 
 namespace client {
 

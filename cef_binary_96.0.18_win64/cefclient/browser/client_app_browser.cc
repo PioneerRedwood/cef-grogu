@@ -2,12 +2,12 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "browser/client_app_browser.h"
+#include "cefclient/browser/client_app_browser.h"
 
 #include "include/base/cef_logging.h"
 #include "include/cef_cookie.h"
-#include "browser/main_message_loop_external_pump.h"
-#include "common/client_switches.h"
+
+#include "cefclient/common/client_switches.h"
 
 namespace client {
 
@@ -102,10 +102,10 @@ void ClientAppBrowser::OnBeforeChildProcessLaunch(
 
 void ClientAppBrowser::OnScheduleMessagePumpWork(int64 delay) {
   // Only used when `--external-message-pump` is passed via the command-line.
-  MainMessageLoopExternalPump* message_pump =
-      MainMessageLoopExternalPump::Get();
-  if (message_pump)
-    message_pump->OnScheduleMessagePumpWork(delay);
+  //MainMessageLoopExternalPump* message_pump =
+  //    MainMessageLoopExternalPump::Get();
+  //if (message_pump)
+  //  message_pump->OnScheduleMessagePumpWork(delay);
 }
 
 }  // namespace client

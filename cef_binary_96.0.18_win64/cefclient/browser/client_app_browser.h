@@ -8,7 +8,7 @@
 
 #include <set>
 
-#include "common/client_app.h"
+#include "cefclient/common/client_app.h"
 
 namespace client {
 
