@@ -12,8 +12,8 @@
 #include "include/cef_app.h"
 #include "include/cef_command_line.h"
 
-#include "main_context.h"
-#include "root_window_manager.h"
+#include "cefclient/browser/main_context.h"
+#include "cefclient/browser/root_window_manager.h"
 
 namespace client {
 

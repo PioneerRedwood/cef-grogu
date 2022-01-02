@@ -6,14 +6,11 @@
 #define CEF_TESTS_SHARED_BROWSER_MAIN_MESSAGE_LOOP_H_
 #pragma once
 
+#include <windows.h>
 #include <memory>
 
 #include "include/base/cef_callback.h"
 #include "include/cef_task.h"
-
-#if defined(OS_WIN)
-#include <windows.h>
-#endif
 
 namespace client {
 
@@ -58,7 +55,7 @@ class MainMessageLoop {
   MainMessageLoop();
   virtual ~MainMessageLoop();
 
- private:
+private:
   DISALLOW_COPY_AND_ASSIGN(MainMessageLoop);
 };
 

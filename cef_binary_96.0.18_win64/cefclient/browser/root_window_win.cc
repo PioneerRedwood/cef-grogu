@@ -2,7 +2,7 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "root_window_win.h"
+#include "cefclient/browser/root_window_win.h"
 
 #include <shellscalingapi.h>
 
@@ -10,27 +10,22 @@
 #include "include/base/cef_callback.h"
 #include "include/cef_app.h"
 
-#include "browser_window_std_win.h"
-#include "main_context.h"
-#include "resource.h"
-#include "temp_window.h"
-// #include "cefclient/browser/window_test_runner_win.h" // 테스트 부분?
+#include "cefclient/browser/browser_window_std_win.h"
+#include "cefclient/browser/main_context.h"
+#include "cefclient/browser/resource.h"
+#include "cefclient/browser/temp_window.h"
+#include "cefclient/browser/main_message_loop.h"
 
-#include "browser/geometry_util.h"
-#include "browser/main_message_loop.h"
-#include "browser/util_win.h"
-#include "common/client_switches.h"
+#include "cefclient/utils/geometry_util.h"
+#include "cefclient/utils/util_win.h"
+
+#include "cefclient/common/client_switches.h"
 
 #define MAX_URL_LENGTH 255
 #define BUTTON_WIDTH 72
 #define URLBAR_HEIGHT 24
 
 namespace client {
-
-// static from root_window_create.cc
-//scoped_refptr<RootWindow> RootWindow::Create(bool _) {
-//  return new RootWindowWin();
-//}
 
 namespace {
 
@@ -768,12 +763,6 @@ bool RootWindowWin::OnCommand(UINT id) {
     return true;
   }
 
-  // GROGU
-  if (id >= ID_GROGU_HELLO) {
-      delegate_->OnCallGrogu(this, id);
-      return true;
-  }
-
   switch (id) {
     case IDM_ABOUT:
       OnAbout();
@@ -799,9 +788,6 @@ bool RootWindowWin::OnCommand(UINT id) {
     case IDC_NAV_STOP:  // Stop button
       if (CefRefPtr<CefBrowser> browser = GetBrowser())
         browser->StopLoad();
-      return true;
-    case ID_GROGU_HELLO:
-      delegate_->OnCallGrogu(this, id);
       return true;
   }
 

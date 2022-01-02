@@ -2,19 +2,20 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "root_window_manager.h"
+#include "cefclient/browser/root_window_manager.h"
 
 #include <sstream>
 
 #include "include/base/cef_callback.h"
 #include "include/base/cef_logging.h"
 #include "include/wrapper/cef_helpers.h"
-#include "main_context.h"
-#include "test_runner.h"
-#include "browser/extension_util.h"
-#include "browser/file_util.h"
-#include "browser/resource_util.h"
-#include "common/client_switches.h"
+
+#include "cefclient/browser/main_context.h"
+#include "cefclient/tests/test_runner.h"
+#include "cefclient/utils/extension_util.h"
+#include "cefclient/utils/file_util.h"
+#include "cefclient/utils/resource_util.h"
+#include "cefclient/common/client_switches.h"
 
 namespace client {
 
@@ -331,14 +332,15 @@ CefRefPtr<CefRequestContext> RootWindowManager::GetRequestContext(
   return shared_request_context_;
 }
 
-scoped_refptr<ImageCache> RootWindowManager::GetImageCache() {
-  CEF_REQUIRE_UI_THREAD();
-
-  if (!image_cache_) {
-    image_cache_ = new ImageCache;
-  }
-  return image_cache_;
-}
+// 2022-01-02 ImageCache deleted
+//scoped_refptr<ImageCache> RootWindowManager::GetImageCache() {
+//  CEF_REQUIRE_UI_THREAD();
+//
+//  if (!image_cache_) {
+//    image_cache_ = new ImageCache;
+//  }
+//  return image_cache_;
+//}
 
 void RootWindowManager::OnTest(RootWindow* root_window, int test_id) {
   REQUIRE_MAIN_THREAD();
@@ -433,9 +435,9 @@ void RootWindowManager::CleanupOnUIThread() {
     temp_window_.reset(nullptr);
   }
 
-  if (image_cache_) {
-    image_cache_ = nullptr;
-  }
+  //if (image_cache_) {
+  //  image_cache_ = nullptr;
+  //}
 
   // Quit the main message loop.
   MainMessageLoop::Get()->Quit();

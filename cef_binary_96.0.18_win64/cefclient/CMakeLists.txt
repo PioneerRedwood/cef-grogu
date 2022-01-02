@@ -8,188 +8,136 @@
 ##########################################################################
 # cefclient browser sources.
 set(CEFCLIENT_BROWSER_SRCS
+  browser/resource.h
+  browser/resource_idmap.cc
+
   browser/browser_window.cc
   browser/browser_window.h
-  browser/client_app_delegates_browser.cc
-  browser/client_browser.cc
-  browser/client_browser.h
-  browser/client_handler.cc
-  browser/client_handler.h
-  browser/client_handler_std.cc
-  browser/client_handler_std.h
-  browser/client_types.h
-  browser/image_cache.cc
-  browser/image_cache.h
-  browser/main_context.cc
-  browser/main_context.h
-  browser/main_context_impl.cc
-  browser/main_context_impl.h
-  browser/resource.h
-  browser/root_window.cc
-  browser/root_window.h
-  browser/root_window_create.cc
-  browser/root_window_manager.cc
-  browser/root_window_manager.h
-  # browser/scheme_test.cc
-  # browser/scheme_test.h
-  # browser/server_test.cc
-  # browser/server_test.h
-  browser/temp_window.h
-  browser/test_runner.cc
-  browser/test_runner.h
-  # browser/urlrequest_test.cc
-  # browser/urlrequest_test.h
-  # shared/browser/ #
+
+  browser/browser_window_std_win.cc
+  browser/browser_window_std_win.h
+
   browser/client_app_browser.cc
   browser/client_app_browser.h
-  browser/extension_util.cc
-  browser/extension_util.h
-  browser/file_util.cc
-  browser/file_util.h
-  browser/geometry_util.cc
-  browser/geometry_util.h
+
+  browser/client_app_delegates_browser.cc
+
+  browser/client_browser.cc
+  browser/client_browser.h
+
+  browser/client_handler.cc
+  browser/client_handler.h
+
+  browser/client_handler_std.cc
+  browser/client_handler_std.h
+
+  browser/client_types.h
+
+  browser/main_context.cc
+  browser/main_context.h
+
+  browser/main_context_impl.cc
+  browser/main_context_impl.h
+
+  browser/main_context_impl_win.cc
+
   browser/main_message_loop.cc
   browser/main_message_loop.h
-  browser/main_message_loop_external_pump.cc
-  browser/main_message_loop_external_pump.h
+
   browser/main_message_loop_std.cc
   browser/main_message_loop_std.h
-  browser/resource_util.h
+
+  browser/root_window.cc
+  browser/root_window.h
+
+  browser/root_window_win.cc
+  browser/root_window_win.h
+
+  browser/temp_window.cc
+  browser/temp_window.h
+
+  browser/root_window_create.cc
+
+  browser/root_window_manager.cc
+  browser/root_window_manager.h
+
   )
-source_group(cefclient\\\\browser FILES ${CEFCLIENT_BROWSER_SRCS})
+source_group(cefclient////browser FILES ${CEFCLIENT_BROWSER_SRCS})
+
+set(CEFCLIENT_UTILS_SRCS
+  # utils
+  utils/extension_util.cc
+  utils/extension_util.h
+
+  utils/file_util.cc
+  utils/file_util.h
+
+  utils/geometry_util.cc
+  utils/geometry_util.h
+
+  utils/resource_util.cc
+  utils/resource_util.h
+
+  utils/util_win.cc
+  utils/util_win.h
+  )
+source_group(cefclient////utils FILES ${CEFCLIENT_UTILS_SRCS})
+
+set(CEFCLIENT_TESTS_SRCS
+  # tests
+  tests/test_runner.cc
+  tests/test_runner.h
+
+  tests/scheme_test.cc
+  tests/scheme_test.h
+
+  tests/server_test.cc
+  tests/server_test.h
+
+  tests/urlrequest_test.cc
+  tests/urlrequest_test.h
+  )
+source_group(cefclient////tests FILES ${CEFCLIENT_TESTS_SRCS})
 
 # cefclient common sources.
 set(CEFCLIENT_COMMON_SRCS
-  common/client_app_delegates_common.cc
   common/scheme_test_common.cc
   common/scheme_test_common.h
+
   common/client_app.cc
   common/client_app.h
-  common/client_app_other.cc
-  common/client_app_other.h
+
   common/client_switches.cc
   common/client_switches.h
   )
-source_group(cefclient\\\\common FILES ${CEFCLIENT_COMMON_SRCS})
+source_group(cefclient////common FILES ${CEFCLIENT_COMMON_SRCS})
 
-# cefclient renderer sources.
-set(CEFCLIENT_RENDERER_SRCS
-  renderer/client_app_delegates_renderer.cc
-  renderer/client_renderer.cc
-  renderer/client_renderer.h
-  renderer/performance_test.cc
-  renderer/performance_test.h
-  renderer/performance_test_setup.h
-  renderer/performance_test_tests.cc
-  renderer/client_app_renderer.c
-  renderer/client_app_renderer.h
-  )
-source_group(cefclient\\\\renderer FILES ${CEFCLIENT_RENDERER_SRCS})
-
-#cefclient Windows sources
-set(CEFCLIENT_WINDOWS_SRCS
-  cefclient_win.cc
-  )
-source_group(cefclient FILES ${CEFCLIENT_WINDOWS_SRCS})
-
-set(CEFCLIENT_WINDOWS_BROWSER_SRCS
-  browser/browser_window_std_win.cc
-  browser/browser_window_std_win.h
-  browser/main_context_impl_win.cc
-  browser/main_message_loop_multithreaded_win.cc
-  browser/main_message_loop_multithreaded_win.h
-  # browser/osr_window_win.cc
-  # browser/osr_window_win.h
-  browser/resource_util_win_idmap.cc
-  browser/root_window_win.cc
-  browser/root_window_win.h
-  browser/temp_window_win.cc
-  browser/temp_window_win.h
-  # browser/window_test_runner_win.cc
-  # browser/window_test_runner_win.h
-  )
-source_group(cefclient\\\\browser FILES ${CEFCLIENT_WINDOWS_BROWSER_SRCS})
-
-set(CEFCLIENT_WINDOWS_RESOURCES_WIN_SRCS
-  resources/win/cefclient.rc
-  )
-source_group(cefclient\\\\resources\\\\win FILES ${CEFCLIENT_WINDOWS_RESOURCES_WIN_SRCS})
-
-set(CEFCLIENT_WINDOWS_SHARED_BROWSER_SRCS
-  browser/main_message_loop_external_pump_win.cc
-  browser/resource_util_win.cc
-  browser/util_win.cc
-  browser/util_win.h
-  )
-source_group(shared\\\\browser FILES ${CEFCLIENT_WINDOWS_SHARED_BROWSER_SRCS})
-
-set(CEFCLIENT_WINDOWS_SRCS
-  ${CEFCLIENT_WINDOWS_SRCS}
-  ${CEFCLIENT_WINDOWS_BROWSER_SRCS}
-  ${CEFCLIENT_WINDOWS_RESOURCES_WIN_SRCS}
-  ${CEFCLIENT_WINDOWS_SHARED_BROWSER_SRCS}
-  )
-
-# cefclient resources.
+# cefclient resources sources.
 set(CEFCLIENT_RESOURCES_SRCS
-  # resources/binding.html
-  # resources/dialogs.html
-  resources/draggable.html
-  # resources/drm.html
-  # resources/localstorage.html
-  resources/logo.png
-  # resources/media_router.html
-  resources/menu_icon.1x.png
-  resources/menu_icon.2x.png
-  resources/other_tests.html
-  # resources/performance.html
-  # resources/performance2.html
-  # resources/preferences.html
-  # resources/response_filter.html
-  resources/server.html
-  # resources/transparency.html
-  resources/urlrequest.html
-  resources/websocket.html
-  resources/window.html
-  # resources/xmlhttprequest.html
-  # grogu
-  resources/grogu.html
+  resources/pics/logo.png
+  resources/htmls/other_tests.html
+  resources/htmls/server.html
+  resources/htmls/urlrequest.html
+  resources/htmls/websocket.html
+  resources/cefclient.rc
   )
-source_group(cefclient\\\\resources FILES ${CEFCLIENT_RESOURCES_SRCS})
+source_group(cefclient////resources FILES ${CEFCLIENT_RESOURCES_SRCS})
 
-set(CEFCLIENT_RESOURCES_RESOURCES_EXTENSIONS_SET_PAGE_COLOR_SRCS
-  resources/extensions/set_page_color/README.md
-  resources/extensions/set_page_color/icon.png
-  resources/extensions/set_page_color/manifest.json
-  resources/extensions/set_page_color/popup.html
-  resources/extensions/set_page_color/popup.js
+set(CEFCLIENT_SRC
+  cefclient.cc
   )
-source_group(cefclient\\\\resources\\\\extensions\\\\set_page_color FILES ${CEFCLIENT_RESOURCES_RESOURCES_EXTENSIONS_SET_PAGE_COLOR_SRCS})
+source_group(cefclient FILES ${CEFCLIENT_SRC})
 
-# boost library
-if("$ENV{BOOST_SDK}")
-  set(BOOST_PATH "$ENV{BOOST_SDK}")
-  # include path
-  set(BOOST_INCLUDE_PATH "${BOOST_PATH}/include")
-  
-
-  
-  # libraray path
-  # set(BOOST_STATIC_LIB_PATH "${BOOST_PATH}/stage/lib")
-
-  set(BOOST_ASIO_SRCS
-
+set(CEFCLIENT_SRCS
+  ${CEFCLIENT_BROWSER_SRCS}
+  ${CEFCLIENT_COMMON_SRCS}
+  ${CEFCLIENT_TESTS_SRCS}
+  ${CEFCLIENT_UTILS_SRCS}
+  ${CEFCLIENT_RESOURCES_SRCS}
+  ${CEFCLIENT_SRC}
   )
 
-else()
-  message(FATAL_ERROR "Required boost path in system variables")
-endif()
-# Example #1 header only *.hpp
-
-
-# Example #2 static lib / lib
-
-# Example #3 shared lib / dll
+##########################################################################
 
 #
 # Shared configuration.
@@ -202,17 +150,33 @@ ADD_LOGICAL_TARGET("libcef_lib" "${CEF_LIB_DEBUG}" "${CEF_LIB_RELEASE}")
 # Determine the target output directory.
 SET_CEF_TARGET_OUT_DIR()
 
+# boost library
+
+if("$ENV{BOOST_SDK}")
+  set(BOOST_PATH "$ENV{BOOST_SDK}")
+  # include path
+  set(BOOST_INCLUDE_PATH "${BOOST_PATH}/include")
+  
+  
+  # libraray path
+  # set(BOOST_STATIC_LIB_PATH "${BOOST_PATH}/stage/lib")
+
+  set(BOOST_ASIO_SRCS
+
+  )
+
+else()
+  message(STATUS "Required boost path in system variables")
+endif()
+# Example #1 header only *.hpp
+
+# Example #2 static lib / lib
+
+# Example #3 shared lib / dll
+
 #
 # Windows configuration.
 #
-
-set(CEFCLIENT_SRCS
-  ${CEFCLIENT_BROWSER_SRCS}
-  ${CEFCLIENT_COMMON_SRCS}
-  ${CEFCLIENT_RENDERER_SRCS}
-  ${CEFCLIENT_RESOURCES_SRCS}
-  ${CEFCLIENT_WINDOWS_SRCS}
-)
 
 # Executable target.
 add_executable(${CEF_TARGET} WIN32 ${CEFCLIENT_SRCS})
@@ -232,7 +196,7 @@ target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD
 # endif()
 
 # Add the custom manifest files to the executable.
-ADD_WINDOWS_MANIFEST("${CMAKE_CURRENT_SOURCE_DIR}/resources/win" "${CEF_TARGET}" "exe")
+ADD_WINDOWS_MANIFEST("${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CEF_TARGET}" "exe")
 
 # Copy CEF binary and resource files to the target output directory.
 COPY_FILES("${CEF_TARGET}" "${CEF_BINARY_FILES}" "${CEF_BINARY_DIR}" "${CEF_TARGET_OUT_DIR}")

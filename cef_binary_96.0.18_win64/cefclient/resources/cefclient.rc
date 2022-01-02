@@ -1,0 +1,201 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "cefclient/browser/resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 영어(미국) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// 256
+//
+
+IDS_OTHER_TESTS_HTML    256                     "htmls\\other_tests.html"
+
+IDS_SERVER_HTML         256                     "htmls\\server.html"
+
+IDS_URLREQUEST_HTML     256                     "htmls\\urlrequest.html"
+
+IDS_WEBSOCKET_HTML      256                     "htmls\\websocket.html"
+
+IDS_LOGO_PNG            256                     "pics\\logo.png"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_CEFCLIENT           ICON                    "pics\\cefclient.ico"
+
+IDI_SMALL               ICON                    "pics\\small.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDC_CEFCLIENT MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Find...",                    ID_FIND
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About ...",                  IDM_ABOUT
+    END
+    POPUP "&Tests"
+    BEGIN
+        MENUITEM "Get Source",                  ID_TESTS_GETSOURCE
+        MENUITEM "Get Text",                    ID_TESTS_GETTEXT
+        MENUITEM "New Window",                  ID_TESTS_WINDOW_NEW
+        MENUITEM "Popup Window",                ID_TESTS_WINDOW_POPUP
+        MENUITEM "Request",                     ID_TESTS_REQUEST
+        MENUITEM "Other Tests",                 ID_TESTS_OTHER_TESTS
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_CEFCLIENT ACCELERATORS
+BEGIN
+    "?",            IDM_ABOUT,              ASCII,  ALT
+    "/",            IDM_ABOUT,              ASCII,  ALT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG 22, 17, 230, 75
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "System"
+BEGIN
+    ICON            IDI_CEFCLIENT,IDC_MYICON,14,9,16,16
+    LTEXT           "cefclient Version 1.0",IDC_STATIC,49,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2008",IDC_STATIC,49,20,119,8
+    DEFPUSHBUTTON   "OK",IDOK,195,6,30,11,WS_GROUP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 96,0,18,0
+ PRODUCTVERSION 96,0,18,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "FileDescription", "Chromium Embedded Framework (CEF) Client Application"
+            VALUE "FileVersion", "96.0.18+gfe551e4+chromium-96.0.4664.110"
+            VALUE "InternalName", "cefclient"
+            VALUE "LegalCopyright", "Copyright (C) 2021 The Chromium Embedded Framework Authors"
+            VALUE "OriginalFilename", "cefclient.exe"
+            VALUE "ProductName", "Chromium Embedded Framework (CEF) Client Application"
+            VALUE "ProductVersion", "96.0.18+gfe551e4+chromium-96.0.4664.110"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_APP_TITLE           "cefclient"
+    IDC_CEFCLIENT           "CEFCLIENT"
+END
+
+#endif    // 영어(미국) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
