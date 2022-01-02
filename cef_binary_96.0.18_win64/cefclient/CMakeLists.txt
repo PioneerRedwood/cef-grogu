@@ -47,9 +47,6 @@ set(CEFCLIENT_BROWSER_SRCS
   browser/main_message_loop_std.cc
   browser/main_message_loop_std.h
 
-  browser/main_message_loop_multithreaded_win.cc
-  browser/main_message_loop_multithreaded_win.h
-
   browser/root_window.cc
   browser/root_window.h
 

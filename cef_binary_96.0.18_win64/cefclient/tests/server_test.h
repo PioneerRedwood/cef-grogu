@@ -6,7 +6,7 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_SERVER_TEST_H_
 #pragma once
 
-#include "cefclient/test/test_runner.h"
+#include "cefclient/tests/test_runner.h"
 
 namespace client {
 namespace server_test {

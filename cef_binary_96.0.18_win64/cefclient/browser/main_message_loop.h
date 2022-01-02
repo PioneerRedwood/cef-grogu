@@ -18,7 +18,6 @@ namespace client {
 // browser process. This will be the same as the CEF UI thread on Linux, OS X
 // and Windows when not using multi-threaded message loop mode. The methods of
 // this class are thread-safe unless otherwise indicated.
-// 브라우저 프로세스의 메인 어플리케이션 스레드 내부에서 작동중인 메시지 루프를 나타냅니다
 class MainMessageLoop {
  public:
   // Returns the singleton instance of this object.

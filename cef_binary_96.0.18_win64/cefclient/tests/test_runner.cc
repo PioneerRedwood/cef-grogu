@@ -2,7 +2,7 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "cefclient/test/test_runner.h"
+#include "cefclient/tests/test_runner.h"
 
 #include <algorithm>
 #include <map>
@@ -32,7 +32,7 @@
 #include "cefclient/browser/resource.h"
 #include "cefclient/browser/root_window_manager.h"
 
-#include "cefclient/util/resource_util.h"
+#include "cefclient/utils/resource_util.h"
 
 namespace client {
 namespace test_runner {

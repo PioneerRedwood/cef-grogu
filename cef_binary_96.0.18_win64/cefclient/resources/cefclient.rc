@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "cefclient/browser/resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -74,10 +74,6 @@ BEGIN
         MENUITEM "Popup Window",                ID_TESTS_WINDOW_POPUP
         MENUITEM "Request",                     ID_TESTS_REQUEST
         MENUITEM "Other Tests",                 ID_TESTS_OTHER_TESTS
-    END
-    POPUP "Grogu"
-    BEGIN
-        MENUITEM "Hello Grogu",                 ID_GROGU_HELLO
     END
 END
 

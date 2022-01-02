@@ -2,7 +2,7 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "cefclient/util/extension_util.h"
+#include "cefclient/utils/extension_util.h"
 
 #include <algorithm>
 #include <memory>
@@ -13,8 +13,8 @@
 #include "include/cef_path_util.h"
 #include "include/wrapper/cef_closure_task.h"
 
-#include "cefclient/util/file_util.h"
-#include "cefclient/util/resource_util.h"
+#include "cefclient/utils/file_util.h"
+#include "cefclient/utils/resource_util.h"
 
 namespace client {
 namespace extension_util {

@@ -2,7 +2,7 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "cefclient/test/scheme_test.h"
+#include "cefclient/tests/scheme_test.h"
 
 #include <algorithm>
 #include <string>
@@ -16,8 +16,8 @@
 #include "include/cef_scheme.h"
 #include "include/wrapper/cef_helpers.h"
 
-#include "cefclient/test/test_runner.h"
-#include "cefclient/util/resource_util.h"
+#include "cefclient/tests/test_runner.h"
+#include "cefclient/utils/resource_util.h"
 
 namespace client {
 namespace scheme_test {
