@@ -123,6 +123,23 @@ set(CEFCLIENT_RESOURCES_SRCS
   )
 source_group(cefclient////resources FILES ${CEFCLIENT_RESOURCES_SRCS})
 
+# boost library
+
+find_package(Boost 1.77.0)
+if(Boost_FOUND)
+  # Boost headers only
+  include_directories(${Boost_INCLUDE_DIRS})
+  message(STATUS "Using boost libraray ON")
+  set(CEFCLIENT_NETWORK_SRCS
+    network/boost_test.h
+    network/boost_test.cc
+
+    )
+  source_group(cefclient////network FILES ${CEFCLIENT_NETWORK_SRCS})
+else()
+  message(STATUS "Required boost path in system variables")
+endif()
+
 set(CEFCLIENT_SRC
   cefclient.cc
   )
@@ -131,12 +148,14 @@ source_group(cefclient FILES ${CEFCLIENT_SRC})
 set(CEFCLIENT_SRCS
   ${CEFCLIENT_BROWSER_SRCS}
   ${CEFCLIENT_COMMON_SRCS}
+
   ${CEFCLIENT_TESTS_SRCS}
   ${CEFCLIENT_UTILS_SRCS}
+  ${CEFCLIENT_NETWORK_SRCS}
+
   ${CEFCLIENT_RESOURCES_SRCS}
   ${CEFCLIENT_SRC}
   )
-
 ##########################################################################
 
 #
@@ -149,30 +168,6 @@ ADD_LOGICAL_TARGET("libcef_lib" "${CEF_LIB_DEBUG}" "${CEF_LIB_RELEASE}")
 
 # Determine the target output directory.
 SET_CEF_TARGET_OUT_DIR()
-
-# boost library
-
-if("$ENV{BOOST_SDK}")
-  set(BOOST_PATH "$ENV{BOOST_SDK}")
-  # include path
-  set(BOOST_INCLUDE_PATH "${BOOST_PATH}/include")
-  
-  
-  # libraray path
-  # set(BOOST_STATIC_LIB_PATH "${BOOST_PATH}/stage/lib")
-
-  set(BOOST_ASIO_SRCS
-
-  )
-
-else()
-  message(STATUS "Required boost path in system variables")
-endif()
-# Example #1 header only *.hpp
-
-# Example #2 static lib / lib
-
-# Example #3 shared lib / dll
 
 #
 # Windows configuration.

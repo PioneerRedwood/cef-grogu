@@ -19,6 +19,7 @@
 #include "cefclient/browser/main_message_loop_std.h"
 #include "cefclient/common/client_switches.h"
 // #include "cefclient/renderer/client_app_renderer.h"
+#include "cefclient/network/boost_test.h"
 
 namespace client {
 namespace {
@@ -51,7 +52,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
 
   // Create the main message loop object.
   std::unique_ptr<MainMessageLoop> message_loop;
-  message_loop.reset(new MainMessageLoopStd);  
+  message_loop.reset(new MainMessageLoopStd);
 
   // Initialize CEF.
   context->Initialize(main_args, settings, app, nullptr);
@@ -69,6 +70,9 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
 
   // Create the first window.
   context->GetRootWindowManager()->CreateRootWindow(std::move(window_config));
+  
+  //client::network::LittleTimer timer(static_cast<uint32_t>(1));
+  //timer.Start();
 
   // Run the message loop. This will block until Quit() is called by the
   // RootWindowManager after all windows have been destroyed.

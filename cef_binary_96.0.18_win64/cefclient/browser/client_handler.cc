@@ -25,6 +25,7 @@
 #include "cefclient/utils/resource_util.h"
 #include "cefclient/common/client_switches.h"
 
+
 namespace client {
 
 #if defined(OS_WIN)
@@ -148,6 +149,8 @@ std::string GetContentStatusString(cef_ssl_content_status_t status) {
   return result;
 }
 
+
+
 // Load a data: URI containing the error message.
 void LoadErrorPage(CefRefPtr<CefFrame> frame,
                    const std::string& failed_url,
@@ -257,7 +260,6 @@ ClientHandler::ClientHandler(Delegate* delegate,
       initial_navigation_(true) {
   DCHECK(!console_log_file_.empty());
 
-  // ���ҽ� �Ŵ��� �¾�
   resource_manager_ = new CefResourceManager();
   test_runner::SetupResourceManager(resource_manager_, &string_resource_map_);
 

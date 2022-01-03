@@ -2,10 +2,6 @@
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
 
-#
-# Global setup.
-#
-
 # For VS2019 and Xcode 12+ support.
 cmake_minimum_required(VERSION 3.19)
 
@@ -19,10 +15,15 @@ project(grogu)
 # Use folders in the resulting project files.
 set_property(GLOBAL PROPERTY OS_FOLDERS ON)
 
-
 #
 # CEF_ROOT setup.
 #
+# CEF DIR already exists set the root
+# if(NOT EXISTS "$ENV{CEF_DIR}")
+  
+# elseif()
+#   set(CEF_ROOT "$ENV{CEF_DIR}")
+# endif()
 
 set(CEF_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CEF_ROOT}/cmake")
@@ -33,7 +34,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CEF_ROOT}/cmake")
 
 # Execute FindCEF.cmake which must exist in CMAKE_MODULE_PATH.
 find_package(CEF REQUIRED)
-
 
 #
 # Define CEF-based targets.
