@@ -17,15 +17,10 @@
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_stream_resource_handler.h"
 
-// #include "cefclient/test/binding_test.h"
-// #include "cefclient/test/dialog_test.h"
-// #include "cefclient/test/media_router_test.h"
-// #include "cefclient/test/preferences_test.h"
-// #include "cefclient/test/scheme_test.h"
-// #include "cefclient/test/server_test.h"
-// #include "cefclient/test/urlrequest_test.h"
-// #include "cefclient/test/window_test.h"
-// #include "cefclient/test/response_filter_test.h"
+#include "cefclient/tests/scheme_test.h"
+// #include "cefclient/tests/server_test.h"
+// #include "cefclient/tests/urlrequest_test.h"
+// #include "cefclient/tests/response_filter_test.h"
 
 #include "cefclient/browser/client_handler.h"
 #include "cefclient/browser/main_context.h"
@@ -954,7 +949,7 @@ void CreateMessageHandlers(MessageHandlerSet& handlers) {
 
 // Register the scheme handler.
 void RegisterSchemeHandlers() {
-  //scheme_test::RegisterSchemeHandlers();
+  scheme_test::RegisterSchemeHandlers();
 }
 
 CefRefPtr<CefResponseFilter> GetResourceResponseFilter(
