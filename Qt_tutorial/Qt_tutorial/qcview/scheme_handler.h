@@ -13,7 +13,6 @@
 #include "QtCefView/protocol.h"
 #include "QtCefView/view.h"
 
-namespace qcview {
 class SchemeHandler : public CefResourceHandler {
 public:
     SchemeHandler(QCHandler::Delegate* delegate);
@@ -63,6 +62,6 @@ private:
 private:
     IMPLEMENT_REFCOUNTING(SchemeHandler);
 };
-}
+
 
 #endif // SCHEME_HANDLER_H

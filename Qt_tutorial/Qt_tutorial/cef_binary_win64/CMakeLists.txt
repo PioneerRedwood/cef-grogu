@@ -15,18 +15,23 @@ set(CMAKE_CONFIGURATION_TYPES Debug Release)
 # Use folders in the resulting project files.
 set_property(GLOBAL PROPERTY OS_FOLDERS ON)
 
-#
-# CEF_ROOT setup.
-#
-# CEF DIR already exists set the root
-# if(NOT EXISTS "$ENV{CEF_DIR}")
-  
-# elseif()
-#   set(CEF_ROOT "$ENV{CEF_DIR}")
-# endif()
+cmake_policy(SET CMP0074 NEW)
+cmake_policy(SET CMP0077 NEW)
+
+# Set the runtime library type
+set(CEF_RUNTIME_LIBRARY_FLAG "/MD" CACHE STRING "Use dynamic runtime")
+
+# Disable the SANDBOX
+set(USE_SANDBOX OFF CACHE BOOL "Disable the Sandbox")
+
+# Disable the ATL
+
+set(USE_ATL OFF CACHE STRING "Disable the ATL")
 
 set(CEF_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CEF_ROOT}/cmake")
+
+set(CEF_SDK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cef_binary_win64")
 
 #
 # Load the CEF configuration.

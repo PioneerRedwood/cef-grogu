@@ -22,20 +22,20 @@
 
 namespace qcview {
 
-class QCefView::Implementation
+class QCViewImpl
 {
 public:
   explicit Implementation(const QString& url, QCefView* view)
-    : pCefWindow_(nullptr)
-    , pQCefViewHandler_(nullptr)  {
+    : window_(nullptr)
+    , handler_(nullptr)  {
     // Here we must create a QWidget as a wrapper to encapsulate the QWindow
-    pCefWindow_ = new CefWindow(view);
-    pCefWindow_->create();
+    window_ = new CefWindow(view);
+    window_->create();
 
     // Set window info
     CefWindowInfo window_info;
     RECT rc = { 0 };
-    window_info.SetAsChild((HWND)pCefWindow_->winId(), rc);
+    window_info.SetAsChild((HWND)window_->winId(), rc);
 
     for (auto cookieItem : CefSetting::global_cookie_list) {
       CefManager::getInstance().addCookie(cookieItem.name, cookieItem.value, cookieItem.domain, cookieItem.url);
@@ -45,23 +45,23 @@ public:
     browserSettings.plugins = STATE_DISABLED; // disable all plugins
 
     // Create the browser
-    pQCefViewHandler_ = new QCefViewBrowserHandler(pCefWindow_);
+    handler_ = new QCefViewBrowserHandler(window_);
 
     // add archive mapping
     for (auto archiveMapping : archiveMappingList_) {
-      pQCefViewHandler_->AddArchiveResourceProvider(
+      handler_->AddArchiveResourceProvider(
         archiveMapping.path.toStdString(), archiveMapping.url.toStdString(), archiveMapping.psw.toStdString());
     }
 
     // add local folder mapping
     for (auto folderMapping : folderMappingList_) {
-      pQCefViewHandler_->AddLocalDirectoryResourceProvider(
+      handler_->AddLocalDirectoryResourceProvider(
         folderMapping.path.toStdString(), folderMapping.url.toStdString(), folderMapping.priority);
     }
 
     // Create the main browser window.
     if (!CefBrowserHost::CreateBrowser(window_info,       // window info
-                                       pQCefViewHandler_, // handler
+                                       handler_, // handler
                                        url.toStdString(), // url
                                        browserSettings,   // settings
                                        nullptr,
@@ -71,95 +71,54 @@ public:
   }
 
   ~Implementation() {
-    if (pQCefViewHandler_) {
-      pQCefViewHandler_->CloseAllBrowsers(true);
-      pQCefViewHandler_ = nullptr;
+    if (handler_) {
+      handler_->CloseAllBrowsers(true);
+      handler_ = nullptr;
     }
   }
 
   void closeAllBrowsers() {
-    if (pQCefViewHandler_) {
-      pQCefViewHandler_->CloseAllBrowsers(true);
+    if (handler_) {
+      handler_->CloseAllBrowsers(true);
     }
   }
 
-  CefWindow* cefWindow() { return pCefWindow_; }
+  CefWindow* cefWindow() { return window_; }
 
   WId getCefWinId() {
-    if (pCefWindow_)
-      return pCefWindow_->winId();
+    if (window_)
+      return window_->winId();
 
     return 0;
   }
 
   void addLocalFolderResource(const QString& path, const QString& url) {
-    if (pQCefViewHandler_) {
-      pQCefViewHandler_->AddLocalDirectoryResourceProvider(path.toStdString(), url.toStdString());
+    if (handler_) {
+      handler_->AddLocalDirectoryResourceProvider(path.toStdString(), url.toStdString());
     }
   }
 
   void addArchiveResource(const QString& path, const QString& url, const QString& password) {
-    if (pQCefViewHandler_) {
-      pQCefViewHandler_->AddArchiveResourceProvider(path.toStdString(), url.toStdString(), password.toStdString());
+    if (handler_) {
+      handler_->AddArchiveResourceProvider(path.toStdString(), url.toStdString(), password.toStdString());
     }
   }
 
   void navigateToString(const QString& content) {
-    if (pQCefViewHandler_) {
+    if (handler_) {
       std::string data = content.toStdString();
       data = CefURIEncode(CefBase64Encode(data.c_str(), data.size()), false).ToString();
       data = "data:text/html;base64," + data;
-      pQCefViewHandler_->GetBrowser()->GetMainFrame()->LoadURL(data);
+      handler_->GetBrowser()->GetMainFrame()->LoadURL(data);
     }
   }
 
   void navigateToUrl(const QString& url) {
-    if (pQCefViewHandler_) {
+    if (handler_) {
       CefString strUrl;
       strUrl.FromString(url.toStdString());
-      pQCefViewHandler_->GetBrowser()->GetMainFrame()->LoadURL(strUrl);
+      handler_->GetBrowser()->GetMainFrame()->LoadURL(strUrl);
     }
-  }
-
-  bool browserCanGoBack() {
-    if (pQCefViewHandler_)
-      return pQCefViewHandler_->GetBrowser()->CanGoBack();
-
-    return false;
-  }
-
-  bool browserCanGoForward() {
-    if (pQCefViewHandler_)
-      return pQCefViewHandler_->GetBrowser()->CanGoForward();
-
-    return false;
-  }
-
-  void browserGoBack() {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->GetBrowser()->GoBack();
-  }
-
-  void browserGoForward() {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->GetBrowser()->GoForward();
-  }
-
-  bool browserIsLoading() {
-    if (pQCefViewHandler_)
-      return pQCefViewHandler_->GetBrowser()->IsLoading();
-
-    return false;
-  }
-
-  void browserReload() {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->GetBrowser()->Reload();
-  }
-
-  void browserStopLoad() {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->GetBrowser()->StopLoad();
   }
 
   bool triggerEvent(
@@ -174,17 +133,17 @@ public:
   }
 
   bool responseQCefQuery(const QCefQuery& query) {
-    if (pQCefViewHandler_) {
+    if (handler_) {
       CefString res;
       res.FromString(query.response().toStdString());
-      return pQCefViewHandler_->ResponseQuery(query.id(), query.result(), res, query.error());
+      return handler_->ResponseQuery(query.id(), query.result(), res, query.error());
     }
     return false;
   }
 
   void notifyMoveOrResizeStarted() {
-    if (pQCefViewHandler_) {
-      CefRefPtr<CefBrowser> browser = pQCefViewHandler_->GetBrowser();
+    if (handler_) {
+      CefRefPtr<CefBrowser> browser = handler_->GetBrowser();
       if (browser) {
         CefRefPtr<CefBrowserHost> host = browser->GetHost();
         if (host)
@@ -213,7 +172,7 @@ public:
     QList<QByteArray> keys = event.dynamicPropertyNames();
     for (QByteArray key : keys) {
       QVariant value = event.property(key.data());
-      if (value.type() == QMetaType::Bool)
+      if (value.metaType() == QMetaType::Bool)
         dict->SetBool(key.data(), value.toBool());
       else if (value.type() == QMetaType::Int || value.type() == QMetaType::UInt)
         dict->SetInt(key.data(), value.toInt());
@@ -228,39 +187,39 @@ public:
 
     arguments->SetDictionary(idx++, dict);
 
-    return pQCefViewHandler_->TriggerEvent(frameId, msg);
+    return handler_->TriggerEvent(frameId, msg);
   }
 
   void onToplevelWidgetMoveOrResize() { notifyMoveOrResizeStarted(); }
 
   void setContextMenuHandler(CefContextMenuHandler* handler) {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->SetContextMenuHandler(handler);
+    if (handler_)
+      handler_->SetContextMenuHandler(handler);
   }
 
   void setDialogHandler(CefDialogHandler* handler) {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->SetDialogHandler(handler);
+    if (handler_)
+      handler_->SetDialogHandler(handler);
   }
 
   void setDisplayHandler(CefDisplayHandler* handler) {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->SetDisplayHandler(handler);
+    if (handler_)
+      handler_->SetDisplayHandler(handler);
   }
 
   void setDownloadHandler(CefDownloadHandler* handler) {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->SetDownloadHandler(handler);
+    if (handler_)
+      handler_->SetDownloadHandler(handler);
   }
 
   void setJSDialogHandler(CefJSDialogHandler* handler) {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->SetJSDialogHandler(handler);
+    if (handler_)
+      handler_->SetJSDialogHandler(handler);
   }
 
   void setKeyboardHandler(CefKeyboardHandler* handler) {
-    if (pQCefViewHandler_)
-      pQCefViewHandler_->SetKeyboardHandler(handler);
+    if (handler_)
+      handler_->SetKeyboardHandler(handler);
   }
 
 public:
@@ -281,13 +240,13 @@ public:
   static QList<ArchiveMapping> archiveMappingList_;
 
 private:
-  QPointer<CefWindow> pCefWindow_;
+  QPointer<CefWindow> window_;
 
-  CefRefPtr<QCefViewBrowserHandler> pQCefViewHandler_;
+  CefRefPtr<QCefViewBrowserHandler> handler_;
 };
 
-QList<QCefView::Implementation::FolderMapping> QCefView::Implementation::folderMappingList_;
-QList<QCefView::Implementation::ArchiveMapping> QCefView::Implementation::archiveMappingList_;
+QList<QCViewImpl::FolderMapping> QCViewImpl::folderMappingList_;
+QList<QCViewImpl::ArchiveMapping> QCViewImpl::archiveMappingList_;
 
 QCefView::QCefView(const QString url, QWidget* parent /*= 0*/)
   : QWidget(parent)
@@ -456,31 +415,6 @@ void QCefView::setKeyboardHandler(CefKeyboardHandler* handler) {
   if (pImpl_)
     return pImpl_->setKeyboardHandler(handler);
 }
-
-void QCefView::onLoadingStateChanged(bool isLoading, bool canGoBack, bool canGoForward) {}
-
-void QCefView::onLoadStart() {}
-
-void QCefView::onLoadEnd(int httpStatusCode) {}
-
-void QCefView::onLoadError(int errorCode, const QString& errorMsg, const QString& failedUrl, bool& handled) {}
-
-void QCefView::onDraggableRegionChanged(const QRegion& region) {}
-
-void QCefView::onConsoleMessage(const QString& message, int level) {}
-
-void QCefView::onTakeFocus(bool next) {}
-
-void QCefView::onQCefUrlRequest(const QString& url) {}
-
-void QCefView::onQCefQueryRequest(const QCefQuery& query) {}
-
-void QCefView::onInvokeMethodNotify(
-  int browserId, 
-  int frameId, 
-  const QString& method, 
-  const QVariantList& arguments)
-{}
 
 void QCefView::changeEvent(QEvent* event) {
   if (QEvent::ParentAboutToChange == event->type()) {

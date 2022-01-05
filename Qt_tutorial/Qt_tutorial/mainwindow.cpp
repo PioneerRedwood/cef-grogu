@@ -1,6 +1,14 @@
+#include <iostream>
+
+#include "QHBoxLayout"
+#include "QDir"
+#include "QCoreApplication"
+
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <iostream>
+
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,7 +33,20 @@ void MainWindow::initWindow()
     connect(ui->closeButton, SIGNAL(clicked()), this, SLOT(closeWindow()));
     connect(ui->minimizeButton, SIGNAL(clicked()), this, SLOT(minimizeWindow()));
 
-    //
+    // add custom widget
+
+//    QHBoxLayout *layout = new QHBoxLayout();
+//    layout->setContentsMargins(1, 1, 1, 1);
+//    layout->setSpacing(3);
+//    layout->addWidget(ui->cefBrowseWidget);
+//    QDir dir = QCoreApplication::applicationDirPath();
+//    QString uri = QDir::toNativeSeparators(dir.filePath("..html"));
+//    qcview_ = new qcview::QCView(uri, this);
+//    ui->cefBrowseWidget->layout()->addWidget(qcview_);
+//    layout->addWidget(ui->cefBrowseWidget);
+
+
+
 }
 
 void MainWindow::closeWindow()

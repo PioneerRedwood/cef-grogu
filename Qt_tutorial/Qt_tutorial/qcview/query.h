@@ -9,14 +9,13 @@
 #include "QPointer"
 #include "QMetaType"
 
-namespace qcview {
 class QCQuery {
 public:
     QCQuery();
     QCQuery(QString req, int64_t query);
     QCQuery(const QCQuery& other);
 
-    QCQuery& operator=(cosnt QCQuery& other);
+    QCQuery& operator=(const QCQuery& other);
     ~QCQuery();
 
     const QString request() const;
@@ -37,9 +36,7 @@ private:
     mutable int error_;
 };
 
-Q_DECLARE_METATYPE(QCQuery);
-
-}
+//Q_DECLARE_METATYPE(QCQuery);
 
 
 #endif // QUERY_H

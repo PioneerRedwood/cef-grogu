@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 
+// #include "qcview/view.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -27,6 +29,8 @@ private:
     void initWindow();
 
     Ui::MainWindow *ui;
+//    qcview::QCView *qcview_;
+
     QPointF oldPos;
 };
 #endif // MAINWINDOW_H

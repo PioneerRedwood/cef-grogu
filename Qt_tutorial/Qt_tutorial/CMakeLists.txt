@@ -8,22 +8,38 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
 
+# Set CEF root dir and append it to CMAKE_MODULE_PATH
+###############################################################
+set(CEF_ROOT "${CEF_SDK_DIR}")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CEF_ROOT}/cmake")
+###############################################################
+
+
+# Config the CEF
+###############################################################
 add_subdirectory(cef_binary_win64)
 
-set(TS_FILES Qt_tutorial_ko_KR.ts)
+###############################################################
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        ${TS_FILES}
+    qcview/event.h
+    qcview/protocol.h
+    qcview/query.h
+    qcview/query_handler.h
+    qcview/view.h
+    qcview/view_delegate.h
+    qcview/window.h
+    qcview/scheme_handler.h
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -31,10 +47,19 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(Qt_tutorial PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(Qt_tutorial
+    PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+    libcef_dll_wrapper
+    )
+
+target_include_directories(Qt_tutorial
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cef_binary_win64
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/qcview
+    )
+
+set(TS_FILES Qt_tutorial_ko_KR.ts)
 
 set_target_properties(Qt_tutorial PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

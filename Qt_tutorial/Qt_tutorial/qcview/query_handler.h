@@ -9,12 +9,12 @@
 #include "include/wrapper/cef_stream_resource_handler.h"
 #include "include/wrapper/cef_message_router.h"
 
-#include "QtCefView/qt_cef_view.h"
+#include "qcview/view.h"
+#include "qcview/view_delegate.h"
 
-namespace qcview {
 class QCQueryHandler : public CefBaseRefCounted, public CefMessageRouterBrowserSide::Handler {
 public:
-    QCQueryHandler(QCView::Delegate* delegate);
+    QCQueryHandler(QCViewDelegate* delegate);
     ~QCQueryHandler();
 
     bool OnQuery(CefRefPtr<CefBrowser> browser,
@@ -32,13 +32,12 @@ public:
                   const CefString& response,
                   int error);
 private:
-    QCView::Delegate* delegate_;
+    QCViewDelegate* delegate_;
     std::map<int64, CefRefPtr<Callback>> callback_map_;
     std::mutex mtx_;
 private:
     IMPLEMENT_REFCOUNTING(QCQueryHandler);
 };
 
-}
 
 #endif // QUERY_HANDLER_H
